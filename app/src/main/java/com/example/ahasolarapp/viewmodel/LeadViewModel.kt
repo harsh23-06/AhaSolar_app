@@ -1,10 +1,10 @@
 package com.example.ahasolarapp.viewmodel
 
+import com.example.ahasolarapp.api.ApiResponse
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.example.ahasolarapp.api.ApiResponse
 import com.example.ahasolarapp.model.LeadListRequest
 import com.example.ahasolarapp.model.LeadModel
 import com.example.ahasolarapp.repository.LeadRepository
@@ -16,6 +16,7 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
     private val _leadListLiveData = MutableLiveData<ApiResponse<LeadModel>>()
 
     val leadListLiveData = _leadListLiveData
+    val leadData: LiveData<ApiResponse<LeadModel>> get() = _leadListLiveData
 
     fun getLeadList() {
         _leadListLiveData.value = ApiResponse.Loading(null)
