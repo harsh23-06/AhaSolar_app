@@ -13,6 +13,9 @@
         android:theme="@style/Theme.AhaSolarApp"
         tools:targetApi="31">
         <activity
+            android:name=".LeadListActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
