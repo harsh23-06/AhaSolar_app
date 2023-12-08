@@ -14,11 +14,12 @@ import com.example.ahasolarapp.databinding.LeadItemBinding
 import com.example.ahasolarapp.model.LeadModel
 
 interface OnItemClickListener {
-    fun onDeleteClick(position: Int, itemId: String)
+    fun onDeleteClick(position: Int)
 }
 
 
-class LeadListAdapter(private val context: Context, private val list: List<LeadModel>) :
+class LeadListAdapter(private val context: Context, private val list: List<LeadModel>,private val onItemClickListener: OnItemClickListener
+) :
     RecyclerView.Adapter<LeadListAdapter.LeadViewHolder>() {
     class LeadViewHolder( val binding: LeadItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -56,6 +57,8 @@ class LeadListAdapter(private val context: Context, private val list: List<LeadM
                     }
 
                     R.id.delete -> {
+
+                        onItemClickListener.onDeleteClick(position)
                         deleteItem(position)
                         true
                     }

@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#F9F0E0"
         tools:context=".LeadListActivity">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -70,8 +71,8 @@
             android:id="@+id/leadList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="20dp"
             android:orientation="vertical"
+            android:layout_marginHorizontal="20dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

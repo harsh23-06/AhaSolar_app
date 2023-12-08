@@ -21,5 +21,9 @@ interface ApiService {
         @Body request: LeadListRequest
     ): Response<LeadResponse>
     @POST("api/lead/leadCreate")
-    fun createLead(@Body request: LeadDeleteRequest): Call<LeadResponse>
+    suspend fun deleteLead(
+        @HeaderMap headers: Map<String, String>,
+        @Body request: LeadDeleteRequest
+    ): Response<LeadResponse>
+
 }
