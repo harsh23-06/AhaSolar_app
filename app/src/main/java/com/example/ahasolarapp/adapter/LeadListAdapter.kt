@@ -9,16 +9,19 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ahasolarapp.R
+import com.example.ahasolarapp.model.LeadModel
+
 interface OnItemClickListener {
     fun onEditClick(position: Int)
     fun onFilterClick(position: Int)
     fun onDeleteClick(position: Int)
 }
 
-class LeadListAdapter(private val context: Context, private val list: ArrayList<Integer>) :
+class LeadListAdapter(private val context: Context, private val list: LeadModel) :
     RecyclerView.Adapter<LeadListAdapter.LeadViewHolder>() {
     class LeadViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val popupMenu: ImageView = itemView.findViewById(R.id.popupMenu)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeadViewHolder {
@@ -27,7 +30,7 @@ class LeadListAdapter(private val context: Context, private val list: ArrayList<
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return 1
     }
 
     override fun onBindViewHolder(holder: LeadViewHolder, position: Int) {
@@ -60,7 +63,7 @@ class LeadListAdapter(private val context: Context, private val list: ArrayList<
     }
 
     private fun deleteItem(position: Int) {
-        list.removeAt(position)
+//        list.removeAt(position)
         notifyItemRemoved(position)
     }
 }

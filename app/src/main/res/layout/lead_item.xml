@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="model"
 
+            type="com.example.ahasolarapp.model.LeadModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -28,6 +31,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
+                    android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -35,7 +39,8 @@
                     android:maxLength="25"
                     android:maxLines="1"
                     android:padding="15dp"
-                    android:text="dddddd" />
+                    android:text="@{model.projectName+` (`+String.valueOf(model.pvCapacity)+` kW)`}"
+                    />
 
                 <ImageView
                     android:id="@+id/popupMenu"
@@ -59,6 +64,7 @@
 
 
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -66,8 +72,8 @@
                     android:background="@drawable/textview"
                     android:textColor="@color/white"
                     android:paddingHorizontal="10dp"
-                    tools:text="Lead Category" />
-                <!--                        android:text="@{model.categoryName.empty?`-`:model.categoryName}"-->
+                    android:hint="Lead Project"
+                    android:text="@{model.categoryName.empty?`-`:model.categoryName}" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -77,16 +83,16 @@
                     android:backgroundTint="#2BC48A"
                     android:layout_marginHorizontal="3dp"
                     android:paddingHorizontal="10dp"
-                    tools:text="Category Status" />
-                <!--                android:text="@{model.statusName}"-->
+                    android:hint="Category Status"
+                    android:text="@{model.statusName}"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
                     android:layout_weight="1"
                     android:gravity="end"
-                    tools:text="Model id" />
-                <!--                    android:text="@{``+model.id}"-->
+                    android:hint="Model id"
+                    android:text="@{``+model.statusId}"/>
             </LinearLayout>
 
             <LinearLayout
@@ -127,15 +133,17 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    tools:text="contractloadcapcity" />
-                <!--                android:text="@{String.valueOf(model.contractLoad)+` (kW)`}"-->
+                    android:hint="contractloadcapcity"
+                    android:text="@{String.valueOf(model.contractLoad)+` (kW)`}"/>
+                <!--                -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    tools:text="proposedcapacity" />
-                <!--                android:text="@{String.valueOf(model.capacityKw)+` (kW)`}"-->
+                    android:hint="proposedcapacity"
+                    android:text="@{String.valueOf(model.capacityKw)+` (kW)`}"/>
+                <!--                -->
 
             </LinearLayout>
 
@@ -162,8 +170,9 @@
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:lines="2"
-                    tools:text="Address" />
-                <!--                android:text="@{model.address}"-->
+                    android:hint="Address"
+                    android:text="@{model.address}"/>
+                <!--                -->
             </LinearLayout>
 
             <LinearLayout
@@ -181,17 +190,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
                     android:gravity="end"
-                    tools:text="Creator name"
+                    android:hint="Creator name"
+                    android:text="@{model.sourceLeadName}"
                      />
-<!--                android:text="@{model.creatorName}"-->
+<!--                -->
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_marginEnd="5dp"
-                    tools:text="Creator date"
-
+                    android:hint="Creator date"
+                    android:text="@{model.createdAt}"
                     />
-<!--                android:text="@{model.createdDate}"-->
+<!--                -->
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
