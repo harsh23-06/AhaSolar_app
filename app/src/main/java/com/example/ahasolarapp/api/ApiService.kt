@@ -1,5 +1,6 @@
 package com.example.ahasolarapp.api
 
+import com.example.ahasolarapp.model.LeadDeleteRequest
 import com.example.ahasolarapp.model.LeadListRequest
 import com.example.ahasolarapp.model.LeadModel
 import com.example.ahasolarapp.model.LeadResponse
@@ -19,4 +20,6 @@ interface ApiService {
         @HeaderMap headers: Map<String, String>,
         @Body request: LeadListRequest
     ): Response<LeadResponse>
+    @POST("api/lead/leadCreate")
+    fun createLead(@Body request: LeadDeleteRequest): Call<LeadResponse>
 }

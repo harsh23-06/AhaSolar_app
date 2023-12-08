@@ -7,26 +7,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.PopupMenu
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ahasolarapp.R
+import com.example.ahasolarapp.databinding.LeadItemBinding
 import com.example.ahasolarapp.model.LeadModel
 
 interface OnItemClickListener {
-    fun onEditClick(position: Int)
-    fun onFilterClick(position: Int)
-    fun onDeleteClick(position: Int)
+    fun onDeleteClick(position: Int, itemId: String)
 }
+
 
 class LeadListAdapter(private val context: Context, private val list: List<LeadModel>) :
     RecyclerView.Adapter<LeadListAdapter.LeadViewHolder>() {
-    class LeadViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val popupMenu: ImageView = itemView.findViewById(R.id.popupMenu)
+    class LeadViewHolder( val binding: LeadItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: LeadModel) {
+            binding.model = item
+            binding.executePendingBindings()
+        }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeadViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.lead_item, parent, false)
-        return LeadViewHolder(view)
+        val binding: LeadItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.lead_item, parent, false)
+        return LeadViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -34,7 +39,8 @@ class LeadListAdapter(private val context: Context, private val list: List<LeadM
     }
 
     override fun onBindViewHolder(holder: LeadViewHolder, position: Int) {
-        holder.popupMenu.setOnClickListener { view ->
+        holder.bind(list[position])
+        holder.binding.popupMenu.setOnClickListener { view ->
             val popupMenu = PopupMenu(view.context, view)
             val inflater: MenuInflater = popupMenu.menuInflater
             inflater.inflate(R.menu.action_bar_menu, popupMenu.menu)

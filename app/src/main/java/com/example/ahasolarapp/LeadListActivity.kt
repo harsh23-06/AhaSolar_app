@@ -13,11 +13,11 @@ import com.example.ahasolarapp.databinding.ActivityLeadListBinding
 import com.example.ahasolarapp.model.LeadViewModelFactory
 import com.example.ahasolarapp.repository.LeadRepository
 
-class LeadListActivity : AppCompatActivity() {
+class LeadListActivity : AppCompatActivity(){
     private lateinit var binding: ActivityLeadListBinding
 
     private lateinit var leadViewsModel: LeadViewModel
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         binding = ActivityLeadListBinding.inflate(layoutInflater)
         setContentView(binding.root)
