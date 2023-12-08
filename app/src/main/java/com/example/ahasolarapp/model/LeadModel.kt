@@ -1,31 +1,47 @@
 package com.example.ahasolarapp.model
 
-import com.google.gson.annotations.SerializedName
+import Exceptions
+
+data class LeadResponse(
+    val status: Int,
+    val statusCode: Int,
+    val message: String,
+    val data: LeadData,
+    val exceptions: Any // You might want to create a data class for exceptions if needed
+)
+
+data class LeadData(
+    val list: List<LeadModel>,
+    val totalRecords: Int,
+    val startIndex: Int,
+    val endIndex: Int,
+    val lastPage: Int
+)
 
 data class LeadModel(
-    @SerializedName("leadCreatedBy") var leadCreatedBy: String? = null,
-    @SerializedName("leadId") var leadId: Int? = null,
-    @SerializedName("projectName") var projectName: String? = null,
-    @SerializedName("projectId") var projectId: Int? = null,
-    @SerializedName("installerId") var installerId: Int? = null,
-    @SerializedName("address") var address: String? = null,
-    @SerializedName("updatedAt") var updatedAt: String? = null,
-    @SerializedName("statusId") var statusId: Int? = null,
-    @SerializedName("sourceLeadId") var sourceLeadId: String? = null,
-    @SerializedName("statusName") var statusName: String? = null,
-    @SerializedName("sourceLeadName") var sourceLeadName: String? = null,
-    @SerializedName("categoryName") var categoryName: String? = null,
-    @SerializedName("days") var days: Int? = null,
-    @SerializedName("uniqueId") var uniqueId: String? = null,
-    @SerializedName("contractLoad") var contractLoad: String? = null,
-    @SerializedName("capacityKw") var capacityKw: String? = null,
-    @SerializedName("avgMonthlyBill") var avgMonthlyBill: Int? = null,
-    @SerializedName("avgGenerate") var avgGenerate: Int? = null,
-    @SerializedName("loanRequired") var loanRequired: Int? = null,
-    @SerializedName("existingCapacity") var existingCapacity: String? = null,
-    @SerializedName("billDocument") var billDocument: String? = null,
-    @SerializedName("branch") var branch: String? = null,
-    @SerializedName("createdAt") var createdAt: String? = null,
-    @SerializedName("pvCapacity") var pvCapacity: String? = null,
-    @SerializedName("srNo") var srNo: Int? = null
+    val leadCreatedBy: String,
+    val leadId: Int,
+    val projectName: String,
+    val projectId: Int,
+    val installerId: Int,
+    val address: String,
+    val updatedAt: String,
+    val statusId: Int,
+    val sourceLeadId: Int?,
+    val statusName: String,
+    val sourceLeadName: String?,
+    val categoryName: String,
+    val days: Int,
+    val uniqueId: Any?, // Depending on the actual type
+    val contractLoad: String,
+    val capacityKw: String,
+    val avgMonthlyBill: Int,
+    val avgGenerate: Int,
+    val loanRequired: Int,
+    val existingCapacity: Any?, // Depending on the actual type
+    val billDocument: Any?, // Depending on the actual type
+    val branch: String,
+    val createdAt: String,
+    val pvCapacity: Any?, // Depending on the actual type
+    val srNo: Int
 )

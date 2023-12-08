@@ -33,6 +33,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures{
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -47,6 +50,8 @@ dependencies {
 
     //Retrofit https://square.github.io/retrofit/ - latest vesion https://github.com/square/retrofit.
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
     //Gson -> json data to java or kotlin format
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     //coroutines -> https://github.com/Kotlin/kotlinx.coroutines
