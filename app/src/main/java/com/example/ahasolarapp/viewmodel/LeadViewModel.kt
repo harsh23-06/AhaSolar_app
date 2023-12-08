@@ -1,4 +1,4 @@
-import com.example.ahasolarapp.api.ApiResponse
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,31 +11,25 @@ import kotlinx.coroutines.launch
 
 class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
 
-    private val _leadListLiveData = MutableLiveData<ApiResponse<LeadModel>>()
+    private val _leadListLiveData = MutableLiveData<List<LeadModel>>()
+    val leadListLiveData: LiveData<List<LeadModel>> = _leadListLiveData
 
-    val leadListLiveData = _leadListLiveData
-    val leadData: LiveData<ApiResponse<LeadModel>> get() = _leadListLiveData
-
-    fun getLeadList() {
-        _leadListLiveData.value = ApiResponse.Loading(null)
-
+    fun getLeadList(authToken: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val leadListRequest = LeadListRequest(search = "", page = 1, pageSize = 10)
-                val response = repository.getLeadList(leadListRequest)
-
+                val response = repository.getLeadList(authToken, leadListRequest)
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        _leadListLiveData.postValue(ApiResponse.Success(responseBody))
+                        _leadListLiveData.postValue(responseBody.data.list)
                     } else {
-                        _leadListLiveData.postValue(ApiResponse.Error("Response body is null"))
+                        Log.d("Error in response body", "getLeadList: Error")
                     }
-                } else {
-                    _leadListLiveData.postValue(ApiResponse.Error("Error occurred"))
                 }
+
             } catch (exception: Exception) {
-                _leadListLiveData.postValue(ApiResponse.Error(exception.message ?: "Error occurred"))
+                Log.d("Error in response body", "getLeadList: Error")
             }
         }
     }

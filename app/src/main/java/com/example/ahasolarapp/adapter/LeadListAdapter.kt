@@ -17,7 +17,7 @@ interface OnItemClickListener {
     fun onDeleteClick(position: Int)
 }
 
-class LeadListAdapter(private val context: Context, private val list: LeadModel) :
+class LeadListAdapter(private val context: Context, private val list: List<LeadModel>) :
     RecyclerView.Adapter<LeadListAdapter.LeadViewHolder>() {
     class LeadViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val popupMenu: ImageView = itemView.findViewById(R.id.popupMenu)
@@ -30,7 +30,7 @@ class LeadListAdapter(private val context: Context, private val list: LeadModel)
     }
 
     override fun getItemCount(): Int {
-        return 1
+        return list.size
     }
 
     override fun onBindViewHolder(holder: LeadViewHolder, position: Int) {
