@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
 
-    private const val BASE_URL = "https://staging-ahasolar-rewamp.ahasolar.in/"
+    private const val BASE_URL = "https://staging-ahasolar-rewamp.ahasolar.in/api/"
 
     val retrofit: Retrofit by lazy {
         Retrofit.Builder()

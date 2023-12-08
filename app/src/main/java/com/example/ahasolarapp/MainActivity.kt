@@ -1,17 +1,15 @@
 package com.example.ahasolarapp
 
-import LeadViewModelFactory
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.ahasolarapp.api.ApiResponse
 import com.example.ahasolarapp.api.ApiServiceFactory
+import com.example.ahasolarapp.model.LeadListRequest
+import com.example.ahasolarapp.model.LeadViewModelFactory
 import com.example.ahasolarapp.repository.LeadRepository
 import com.example.ahasolarapp.viewmodel.LeadViewModel
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,34 +20,43 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val repository = LeadRepository(ApiServiceFactory.apiService)
-        viewModel = ViewModelProvider(this, LeadViewModelFactory(repository))[LeadViewModel::class.java]
+        val token = getHeaderToken()
 
-        // Observe the LiveData
-        viewModel.leadData.observe(this, Observer { response ->
-            when (response) {
-                is ApiResponse.Success -> {
-                    val message = response.data.message
-                    updateTextView("Message from LeadModel: $message")
-                }
+        viewModel = ViewModelProvider(this,
+            LeadViewModelFactory(repository, token))[LeadViewModel::class.java]
 
-                is ApiResponse.Error -> {
-                    val errorMessage = response.message
-                    updateTextView("Error: $errorMessage")
-                }
 
-                is ApiResponse.Loading -> {
-                    updateTextView("Loading...")
+        val request = LeadListRequest(search = "", page = 1, pageSize = 10)
+
+        viewModel.leads.observe(this, Observer { data ->
+            if (data != null) {
+                if (data.leadList.isNotEmpty()) {
+                    val stringBuilder = StringBuilder()
+                    for (lead in data.leadList) {
+                        val address = lead.address ?: "No address available"
+                        stringBuilder.append("Message:\nAddress: $address\n\n")
+                    }
+                    updateTextView(stringBuilder.toString())
+                } else {
+                    updateTextView("Lead list is empty")
                 }
+            } else {
+                updateTextView("Data is null")
             }
         })
 
-        // Trigger the API call
-        viewModel.getLeadList()
+        viewModel.getLeadList(request)
+    }
+
+    private fun getHeaderToken(): String {
+        // Return your header token
+        return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWdpbmctYWhhc29sYXItcmV3YW1wLmFoYXNvbGFyLmluL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzAxOTQ1NDY4LCJleHAiOjE3MDIxMzc0NjgsIm5iZiI6MTcwMTk0NTQ2OCwianRpIjoiUG9lV2U0ZVBSdElXS1Q3TCIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.N73t5AvksTXJYV_FL0s3OIVQf27lq5JmwFIEquNg9sw"
     }
 
     private fun updateTextView(text: String) {
         runOnUiThread {
-            findViewById<TextView>(R.id.dataTextView).text = text
+            val textView = findViewById<TextView>(R.id.dataTextView)
+            textView.text = text
         }
     }
 }
