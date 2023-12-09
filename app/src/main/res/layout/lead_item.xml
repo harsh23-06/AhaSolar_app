@@ -15,12 +15,14 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:elevation="5dp"
+        android:background="@color/off_white"
         app:strokeColor="@color/black"
         app:cardCornerRadius="5dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
@@ -28,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
                 android:orientation="horizontal"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -38,8 +41,9 @@
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:maxLength="25"
+                    android:hint="Harsh"
                     android:maxLines="1"
-                    android:padding="15dp"
+                    android:padding="8dp"
                     android:text="@{model.projectName+` (`+String.valueOf(model.pvCapacity)+` kW)`}"
                     />
 
@@ -93,7 +97,7 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:hint="Model id"
-                    android:text="@{``+model.statusId}"/>
+                    android:text="@{``+model.leadId}"/>
             </LinearLayout>
 
             <LinearLayout
@@ -153,6 +157,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_marginHorizontal="5dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/linearLayout4">
@@ -161,7 +166,7 @@
                     android:layout_width="10dp"
                     android:layout_height="10dp"
                     android:layout_marginTop="3dp"
-                    android:src="@drawable/baseline_broken_image_24" />
+                    android:src="@drawable/baseline_account_balance_24" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -172,18 +177,18 @@
                     android:maxLines="2"
                     android:lines="2"
                     android:hint="Address"
-                    android:text="@{model.address}"/>
-                <!--                -->
+                    android:text="@{model.address.empty?`-`:model.address}"/>
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="end"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/linearLayout5">
+                app:layout_constraintTop_toBottomOf="@id/linearLayout5"
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <TextView
 
@@ -191,10 +196,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
                     android:gravity="end"
-                    android:hint="Creator name"
-                    android:text="@{model.sourceLeadName}"
+                    android:hint="Creator Name"
+                    android:text="@{model.sourceLeadName.empty?`-`:model.sourceLeadName}"
                      />
-<!--                -->
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
@@ -202,7 +206,6 @@
                     android:hint="Creator date"
                     android:text="@{model.createdAt}"
                     />
-<!--                -->
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

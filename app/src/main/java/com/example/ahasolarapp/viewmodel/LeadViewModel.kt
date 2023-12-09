@@ -3,6 +3,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.ahasolarapp.model.LeadDeleteRequest
 import com.example.ahasolarapp.model.LeadListRequest
 import com.example.ahasolarapp.model.LeadModel
 import com.example.ahasolarapp.repository.LeadRepository
@@ -34,21 +35,25 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
         }
     }
 
-    fun deleteLead(authToken: String, actionType: Int, leadId: Int) {
+    fun deleteLead(authToken: String, leadId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = repository.deleteLead(authToken, actionType,)
+                val deleteRequest = LeadDeleteRequest(actionType = 3, leadId = leadId)
+                Log.d("TAG", "deleteLead: $deleteRequest")
+                val response = repository.deleteLead(authToken, deleteRequest)
                 if (response.isSuccessful) {
-                    // Lead deleted successfully, you might want to refresh the lead list
-                    // Call your getLeadList function or update the existing list
                     getLeadList(authToken)
+                    Log.d("Lead Deletion", "Successfully deleted lead with ID: $leadId")
                 } else {
-                    // Handle error case for lead deletion
-                    Log.d("Lead Deletion Error", "deleteLead: ${response.message()}")
+                    // Handle error case
+                    Log.e("", "Error deleting lead with ID: $leadId")
                 }
+
+                // Reload lead list after deletion
+                getLeadList(authToken)
             } catch (exception: Exception) {
                 // Handle exception
-                Log.d("Lead Deletion Exception", "deleteLead: $exception")
+                Log.e("Lead Deletion", "Error deleting lead with ID: $leadId", exception)
             }
         }
     }

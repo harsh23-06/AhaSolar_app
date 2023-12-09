@@ -2,6 +2,7 @@ package com.example.ahasolarapp.repository
 
 import com.example.ahasolarapp.model.LeadListRequest
 import com.example.ahasolarapp.api.ApiService
+import com.example.ahasolarapp.model.LeadDeleteRequest
 import com.example.ahasolarapp.model.LeadResponse
 import retrofit2.Response
 
@@ -13,11 +14,10 @@ class LeadRepository(private val apiService: ApiService) {
         return apiService.getLeadList(headers, request)
     }
 
-    suspend fun deleteLead(authToken: String, leadId: Int) {
+    suspend fun deleteLead(authToken: String, request: LeadDeleteRequest): Response<LeadResponse> {
         val headers = mapOf("Authorization" to "Bearer $authToken")
-        apiService.deleteLead(headers, actionType = 3, leadId)
+        return apiService.deleteLead(headers, request)
     }
-
 }
 
 
