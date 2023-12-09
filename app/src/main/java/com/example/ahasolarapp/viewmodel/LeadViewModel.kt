@@ -33,4 +33,24 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
             }
         }
     }
+
+    fun deleteLead(authToken: String, actionType: Int, leadId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = repository.deleteLead(authToken, actionType,)
+                if (response.isSuccessful) {
+                    // Lead deleted successfully, you might want to refresh the lead list
+                    // Call your getLeadList function or update the existing list
+                    getLeadList(authToken)
+                } else {
+                    // Handle error case for lead deletion
+                    Log.d("Lead Deletion Error", "deleteLead: ${response.message()}")
+                }
+            } catch (exception: Exception) {
+                // Handle exception
+                Log.d("Lead Deletion Exception", "deleteLead: $exception")
+            }
+        }
+    }
+
 }

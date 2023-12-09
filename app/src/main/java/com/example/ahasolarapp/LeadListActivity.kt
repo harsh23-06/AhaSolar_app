@@ -35,7 +35,7 @@ class LeadListActivity : AppCompatActivity() {
 
 //            binding.tvText.text = it[0].address
 //            Log.d("Dataaaaaaaa", "onCreate: ${it.toString()}")
-            val adapter = LeadListAdapter(this,it)
+            val adapter = LeadListAdapter(this,it,leadViewsModel)
             binding.leadList.adapter = adapter
 
         })

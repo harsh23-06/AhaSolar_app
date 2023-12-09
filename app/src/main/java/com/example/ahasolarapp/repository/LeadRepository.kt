@@ -12,6 +12,12 @@ class LeadRepository(private val apiService: ApiService) {
         val headers = mapOf("Authorization" to "Bearer $authToken")
         return apiService.getLeadList(headers, request)
     }
+
+    suspend fun deleteLead(authToken: String, leadId: Int) {
+        val headers = mapOf("Authorization" to "Bearer $authToken")
+        apiService.deleteLead(headers, actionType = 3, leadId)
+    }
+
 }
 
 
