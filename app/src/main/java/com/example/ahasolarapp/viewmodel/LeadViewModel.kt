@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ahasolarapp.model.DeleteLeadRequest
+import com.example.ahasolarapp.model.LeadDeleteRequest
 import com.example.ahasolarapp.model.LeadListRequest
 import com.example.ahasolarapp.model.LeadModel
 import com.example.ahasolarapp.repository.LeadRepository
@@ -49,11 +50,10 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
 
 
 
-
     fun deleteLead(authToken: String, leadId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val deleteRequest = DeleteLeadRequest(actionType = 3, leadId = leadId)
+                val deleteRequest = LeadDeleteRequest(actionType = 3, leadId = leadId)
                 Log.d("TAG", "deleteLead: $deleteRequest")
                 val response = repository.deleteLead(authToken, deleteRequest)
                 if (response.isSuccessful) {
