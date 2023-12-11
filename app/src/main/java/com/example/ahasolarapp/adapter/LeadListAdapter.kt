@@ -18,7 +18,7 @@ interface OnItemClickListener {
 }
 
 
-class LeadListAdapter(private val context: Context, private var list: List<LeadModel>, private val onItemClickListener: OnItemClickListener
+class LeadListAdapter(private val context: Context, private var originalList: List<LeadModel>,private val onItemClickListener: OnItemClickListener
 ) :
     RecyclerView.Adapter<LeadListAdapter.LeadViewHolder>() {
     class LeadViewHolder( val binding: LeadItemBinding) :
@@ -36,16 +36,11 @@ class LeadListAdapter(private val context: Context, private var list: List<LeadM
     }
 
     override fun getItemCount(): Int {
-        return list.size
-    }
-
-    fun filterList(filterList: List<LeadModel>) {
-        list = filterList
-        notifyDataSetChanged()
+        return originalList.size
     }
 
     override fun onBindViewHolder(holder: LeadViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(originalList[position])
         holder.binding.popupMenu.setOnClickListener { view ->
             val popupMenu = PopupMenu(view.context, view)
             val inflater: MenuInflater = popupMenu.menuInflater
@@ -79,6 +74,10 @@ class LeadListAdapter(private val context: Context, private var list: List<LeadM
     private fun deleteItem(position: Int) {
 //        list.removeAt(position)
         notifyItemRemoved(position)
+    }
+    fun updateList(newList: List<LeadModel>) {
+        originalList = newList
+        notifyDataSetChanged()
     }
 }
 
