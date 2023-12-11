@@ -38,31 +38,15 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
         }
     }
 
-    fun searchLeads(authToken: String, query: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val leadListRequest = LeadListRequest(search = query, page = 1, pageSize = 10)
-                val response = repository.getLeadList(authToken, leadListRequest)
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        _leadListLiveData.postValue(responseBody.data.list)
-                    } else {
-                        Log.d("Error in response body", "searchLeads: Error")
-                    }
-                }
-            } catch (exception: Exception) {
-                Log.e("Error in response body", "searchLeads: Error", exception)
-            }
-        }
-    }
 
     fun filterLeads(query: String) {
-        val filteredList = _leadListLiveData.value?.filter { lead ->
-            lead.projectName.contains(query, ignoreCase = true)
-        } ?: emptyList()
+        val filteredList = _leadListLiveData.value
+            ?.filter { it.projectName.contains(query, ignoreCase = true) }
+            ?: emptyList()
+
         _filteredLeadListLiveData.postValue(filteredList)
     }
+
 
 
 

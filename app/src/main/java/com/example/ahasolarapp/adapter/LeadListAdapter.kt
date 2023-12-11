@@ -39,8 +39,8 @@ class LeadListAdapter(private val context: Context, private var list: List<LeadM
         return list.size
     }
 
-    fun filterList(filterList : ArrayList<LeadModel>){
-        list= filterList
+    fun filterList(filterList: List<LeadModel>) {
+        list = filterList
         notifyDataSetChanged()
     }
 
