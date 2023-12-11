@@ -1,6 +1,5 @@
 package com.example.ahasolarapp.model
 
-import Exceptions
 
 data class LeadResponse(
     val status: Int,
@@ -45,3 +44,9 @@ data class LeadModel(
     val pvCapacity: Any?, // Depending on the actual type
     val srNo: Int
 )
+
+data class DeleteLeadRequest(
+    val actionType: Int,
+    val leadId: Int
+)
+

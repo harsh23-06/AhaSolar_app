@@ -18,7 +18,7 @@ interface OnItemClickListener {
 }
 
 
-class LeadListAdapter(private val context: Context, private val list: List<LeadModel>,private val onItemClickListener: OnItemClickListener
+class LeadListAdapter(private val context: Context, private var list: List<LeadModel>, private val onItemClickListener: OnItemClickListener
 ) :
     RecyclerView.Adapter<LeadListAdapter.LeadViewHolder>() {
     class LeadViewHolder( val binding: LeadItemBinding) :
@@ -37,6 +37,11 @@ class LeadListAdapter(private val context: Context, private val list: List<LeadM
 
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    fun filterList(filterList : ArrayList<LeadModel>){
+        list= filterList
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: LeadViewHolder, position: Int) {
