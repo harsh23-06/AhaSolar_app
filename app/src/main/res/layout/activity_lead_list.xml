@@ -56,31 +56,39 @@
         </com.google.android.material.appbar.AppBarLayout>
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/search_barLL"
+            android:layout_margin="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/action_bar">
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:elevation="5dp"
             android:focusable="true"
             android:background="@drawable/custom_search"
-            app:queryHint="@string/search_here"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/action_bar">
-        </com.google.android.material.search.SearchBar>
+            app:queryHint="@string/search_here">
+        </androidx.appcompat.widget.SearchView>
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/leadList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="5dp"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_bar"
+            app:layout_constraintTop_toBottomOf="@id/search_barLL"
             tools:listitem="@layout/lead_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

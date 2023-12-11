@@ -4,6 +4,7 @@ import LeadViewModel
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.adapters.SearchViewBindingAdapter.setOnQueryTextListener
 import androidx.lifecycle.Observer
@@ -47,17 +48,20 @@ class LeadListActivity : AppCompatActivity(), OnItemClickListener {
         val authToken =
             "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWdpbmctYWhhc29sYXItcmV3YW1wLmFoYXNvbGFyLmluL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzAyMjczMDI2LCJleHAiOjE3MDI0NjUwMjYsIm5iZiI6MTcwMjI3MzAyNiwianRpIjoiUEhQZ2ZyY1diZzBWTzNvYSIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.w7cTUcgaFz7Hz5F52WdkyW1VF8SQt3Kr1ONWRnRdYNk"
         leadViewsModel.getLeadList(authToken)
-        setupSearchBar()
+
+        binding.searchBarLL.setOnClickListener(setupSearchBar())
+
         setupRecyclerView()
     }
 
-    private fun setupSearchBar() {
+    private fun setupSearchBar(): View.OnClickListener {
 
         binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 // Handle search submission
                 return false
             }
+
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 // Handle search text change
@@ -66,6 +70,9 @@ class LeadListActivity : AppCompatActivity(), OnItemClickListener {
                 return true
             }
         })
+        return View.OnClickListener {
+            binding.searchBar.isIconified = false
+        }
     }
 
     private fun setupRecyclerView() {
