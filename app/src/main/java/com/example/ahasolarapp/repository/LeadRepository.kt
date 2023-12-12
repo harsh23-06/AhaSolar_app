@@ -4,10 +4,8 @@ import com.example.ahasolarapp.model.LeadListRequest
 import com.example.ahasolarapp.api.ApiService
 import com.example.ahasolarapp.model.LeadDeleteRequest
 import com.example.ahasolarapp.model.LeadResponse
-import com.example.ahasolarapp.model.LoginRequest
-import com.google.gson.JsonElement
-import com.google.gson.JsonObject
-import retrofit2.Call
+import com.example.ahasolarapp.model.OtpVerifyRequest
+import com.example.ahasolarapp.model.VerifyData
 import retrofit2.Response
 
 class LeadRepository(private val apiService: ApiService) {
@@ -23,11 +21,10 @@ class LeadRepository(private val apiService: ApiService) {
         return apiService.deleteLead(headers, request)
     }
 
-    fun sendOtp(loginRequest: LoginRequest): Response<LeadResponse> {
-//        val headers = mapOf("Authorization" to "Bearer $authToken")
-
-        return apiService.sendOtp(loginRequest)
+    suspend fun verifyOtp(request: OtpVerifyRequest): Response<VerifyData> {
+        return apiService.verifyOtp(request)
     }
+
 }
 
 

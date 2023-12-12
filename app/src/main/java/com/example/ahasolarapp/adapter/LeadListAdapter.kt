@@ -24,6 +24,11 @@ class LeadListAdapter(private val context: Context, private var originalList: Li
     class LeadViewHolder( val binding: LeadItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: LeadModel) {
+
+            val projectName = item.projectName
+            val capitalizedProjectName = projectName.substring(0, 1).toUpperCase() + projectName.substring(1)
+            item.projectName = capitalizedProjectName
+
             binding.model = item
             binding.executePendingBindings()
         }
@@ -41,6 +46,8 @@ class LeadListAdapter(private val context: Context, private var originalList: Li
 
     override fun onBindViewHolder(holder: LeadViewHolder, position: Int) {
         holder.bind(originalList[position])
+        holder.binding.name
+
         holder.binding.popupMenu.setOnClickListener { view ->
             val popupMenu = PopupMenu(view.context, view)
             val inflater: MenuInflater = popupMenu.menuInflater
