@@ -3,20 +3,26 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ahasolarapp.model.DeleteLeadRequest
 import com.example.ahasolarapp.model.LeadDeleteRequest
 import com.example.ahasolarapp.model.LeadListRequest
 import com.example.ahasolarapp.model.LeadModel
+import com.example.ahasolarapp.model.LeadResponse
+import com.example.ahasolarapp.model.LoginRequest
 import com.example.ahasolarapp.repository.LeadRepository
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
 
     private val _leadListLiveData = MutableLiveData<List<LeadModel>>()
     val leadListLiveData: LiveData<List<LeadModel>> = _leadListLiveData
-    private val _filteredLeadListLiveData = MutableLiveData<List<LeadModel>>()
-    val filteredLeadListLiveData: LiveData<List<LeadModel>> = _filteredLeadListLiveData
+    val otpResponse = MutableLiveData<LeadResponse>()
 
 
     fun getLeadList(authToken: String) {
@@ -39,14 +45,6 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
         }
     }
 
-
-    fun filterLeads(query: String) {
-        val filteredList = _leadListLiveData.value
-            ?.filter { it.projectName.contains(query, ignoreCase = true) }
-            ?: emptyList()
-
-        _filteredLeadListLiveData.postValue(filteredList)
-    }
 
 
 
@@ -73,4 +71,18 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
         }
     }
 
+    fun sendOtp(phoneNumber: String) {
+        val loginRequest = LoginRequest(phoneNumber)
+        val response = repository.sendOtp(loginRequest)
+        if(response.isSuccessful){
+            val responseBody = response.body()
+            if (responseBody != null) {
+                otpResponse.postValue(responseBody.copy())
+            } else {
+                Log.d("Error in response body", "getLeadList: Error")
+            }
+        }
+
+    }
 }
+
