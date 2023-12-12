@@ -4,6 +4,8 @@ import com.example.ahasolarapp.model.LeadListRequest
 import com.example.ahasolarapp.api.ApiService
 import com.example.ahasolarapp.model.LeadDeleteRequest
 import com.example.ahasolarapp.model.LeadResponse
+import com.example.ahasolarapp.model.OtpVerifyRequest
+import com.example.ahasolarapp.model.VerifyData
 import retrofit2.Response
 
 class LeadRepository(private val apiService: ApiService) {
@@ -18,6 +20,11 @@ class LeadRepository(private val apiService: ApiService) {
         val headers = mapOf("Authorization" to "Bearer $authToken")
         return apiService.deleteLead(headers, request)
     }
+
+    suspend fun verifyOtp(request: OtpVerifyRequest): Response<VerifyData> {
+        return apiService.verifyOtp(request)
+    }
+
 }
 
 

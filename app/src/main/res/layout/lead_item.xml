@@ -13,24 +13,27 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:elevation="5dp"
+        android:shadowColor="#535353"
         android:background="@color/off_white"
         app:strokeColor="@color/black"
-        app:cardCornerRadius="5dp">
+        app:strokeWidth="0.5dp"
+        app:cardCornerRadius="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginHorizontal="10dp"
             >
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
                 android:orientation="horizontal"
-
+                android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -43,17 +46,14 @@
                     android:maxLength="25"
                     android:hint="Harsh"
                     android:maxLines="1"
-                    android:padding="8dp"
-                    android:text="@{model.projectName+` (`+String.valueOf(model.pvCapacity)+` kW)`}"
+                    android:text="@{model.projectName + ` (` + (model.pvCapacity &lt; 0.0 ? `-` : String.valueOf(model.pvCapacity)) + ` kW)`}"
                     />
 
                 <ImageView
                     android:id="@+id/popupMenu"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="5dp"
-                    android:padding="8dp"
                     android:src="@drawable/menu_dots" />
             </LinearLayout>
 
@@ -61,7 +61,6 @@
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
@@ -73,10 +72,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:backgroundTint="#DF3904"
+                    android:backgroundTint="#C3370A"
                     android:background="@drawable/textview"
                     android:textColor="@color/white"
-                    android:paddingHorizontal="10dp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="3dp"
                     android:hint="Lead Project"
                     android:text="@{model.categoryName.empty?`-`:model.categoryName}" />
 
@@ -85,15 +85,16 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:background="@drawable/textview"
-                    android:backgroundTint="#2BC48A"
+                    android:backgroundTint="#159A67"
+                    android:textColor="@color/white"
                     android:layout_marginHorizontal="3dp"
-                    android:paddingHorizontal="10dp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="3dp"
                     android:hint="Category Status"
                     android:text="@{model.statusName}"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
                     android:layout_weight="1"
                     android:gravity="end"
                     android:hint="Model id"
@@ -130,6 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
+                android:gravity="center"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/linearLayout3">
 
@@ -157,25 +159,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginHorizontal="5dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/linearLayout4">
 
                 <ImageView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/baseline_account_balance_24" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
                     android:layout_weight="1"
+                    android:layout_marginStart="5dp"
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:lines="2"
+                    android:gravity="center"
+                    android:textAlignment="viewStart"
+                    android:layout_gravity="center"
                     android:hint="Address"
                     android:text="@{model.address.empty?`-`:model.address}"/>
             </LinearLayout>
@@ -184,6 +188,7 @@
                 android:id="@+id/linearLayout6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:layout_marginBottom="8dp"
                 android:gravity="end"
                 app:layout_constraintStart_toStartOf="parent"
@@ -202,7 +207,6 @@
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:layout_marginEnd="5dp"
                     android:hint="Creator date"
                     android:text="@{model.createdAt}"
                     />

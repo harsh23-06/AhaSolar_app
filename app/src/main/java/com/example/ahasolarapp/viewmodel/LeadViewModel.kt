@@ -3,10 +3,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.ahasolarapp.api.ApiService
 import com.example.ahasolarapp.model.DeleteLeadRequest
 import com.example.ahasolarapp.model.LeadDeleteRequest
 import com.example.ahasolarapp.model.LeadListRequest
 import com.example.ahasolarapp.model.LeadModel
+import com.example.ahasolarapp.model.OtpVerifyRequest
 import com.example.ahasolarapp.repository.LeadRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,6 +19,7 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
     val leadListLiveData: LiveData<List<LeadModel>> = _leadListLiveData
     private val _filteredLeadListLiveData = MutableLiveData<List<LeadModel>>()
     val filteredLeadListLiveData: LiveData<List<LeadModel>> = _filteredLeadListLiveData
+
 
 
     fun getLeadList(authToken: String) {
@@ -72,5 +75,25 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
             }
         }
     }
+
+    fun verifyOtp(otpRequest: OtpVerifyRequest) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = repository.verifyOtp(otpRequest)
+                if (response.isSuccessful) {
+                    // Handle successful OTP verification
+                    val verifyData = response.body()
+                    Log.e("OTP Verification", "Verified OTP")
+                } else {
+                    // Handle error case
+                    Log.e("OTP Verification", "Error verifying OTP")
+                }
+            } catch (exception: Exception) {
+                // Handle exception
+                Log.e("OTP Verification", "Error verifying OTP", exception)
+            }
+        }
+    }
+
 
 }

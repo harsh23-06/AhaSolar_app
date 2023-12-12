@@ -4,6 +4,8 @@ import com.example.ahasolarapp.model.LeadDeleteRequest
 import com.example.ahasolarapp.model.LeadListRequest
 import com.example.ahasolarapp.model.LeadModel
 import com.example.ahasolarapp.model.LeadResponse
+import com.example.ahasolarapp.model.OtpVerifyRequest
+import com.example.ahasolarapp.model.VerifyData
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -25,5 +27,11 @@ interface ApiService {
         @HeaderMap headers: Map<String, String>,
         @Body request: LeadDeleteRequest
     ): Response<LeadResponse>
+
+    @POST("api/auth/verifyOtp")
+    suspend fun verifyOtp(
+        @Body request: OtpVerifyRequest
+    ): Response<VerifyData>
+
 
 }
