@@ -20,10 +20,10 @@ import retrofit2.http.Url
 
 interface ApiService {
 
-    @POST()
+    @POST
      fun getLeadListWithHeader(
         @Url endpoint: String,
-        @HeaderMap headers: Map<String, String>,
+        @Header("Authorization") headers:String,
         @Body request: JsonObject
     ): Call<LeadResponse>
 
