@@ -45,6 +45,6 @@ interface ApiService {
      fun sendOtpWithNoHeader(
         @Url endpoint: String,
 
-        @Body request: LoginRequest
+        @Body request: JsonObject
     ): Call<LeadResponse>
 }

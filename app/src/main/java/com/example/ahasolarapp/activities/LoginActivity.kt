@@ -32,23 +32,16 @@ class LoginActivity : AppCompatActivity() {
         )[LeadViewModel::class.java]
 
 
-        // Inside LoginActivity
-
-//        val otpRequest = OtpVerifyRequest(mobile = "1111111111", otp = "123456")
-//        leadViewsModel.verifyOtp(otpRequest)
 
         binding.loginButton.setOnClickListener {
             val phoneNumber = binding.phntxt.text.toString()
-//            val otp = binding.otptxt.text.toString()
 
-            val otpRequest = LoginRequest(phoneNumber)
-
-//            leadViewsModel.sendOtp(otpRequest)
+            leadViewsModel.sendOtp(phoneNumber)
 
             leadViewsModel.otpSend.observe(this, Observer {
-                if(it.statusCode == 200) {
+
                     binding.textView.text = it.message
-                }
+
             })
 
         }

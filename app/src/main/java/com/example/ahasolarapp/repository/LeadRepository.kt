@@ -1,5 +1,7 @@
 package com.example.ahasolarapp.repository
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.example.ahasolarapp.R
 import com.example.ahasolarapp.api.ApiResponse
@@ -46,7 +48,28 @@ class LeadRepository(private val apiService: ApiService) {
             })
 
     }
+    fun sendOtp(
+        url: String = "",
+        apiRequest: JsonObject,
+        apiResponse: MutableLiveData<LeadResponse>
+    ) {
 
+            apiService.sendOtpWithNoHeader(url, apiRequest).enqueue(object : Callback<LeadResponse>{
+                override fun onResponse(
+                    call: Call<LeadResponse>,
+                    response: Response<LeadResponse>
+                ) {
+                    apiResponse.value = response.body()
+                }
+
+                override fun onFailure(call: Call<LeadResponse>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+            } )
+
+
+    }
     /*suspend fun deleteLead(
         authToken: String,
         request: LeadDeleteRequest
