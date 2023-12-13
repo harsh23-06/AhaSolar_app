@@ -7,126 +7,116 @@
 
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    tools:context=".activities.LoginActivity">
-
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/flowerImage"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_margin="20dp"
-        android:src="@drawable/aha_logo"
-        app:layout_constraintBottom_toTopOf="@+id/welcome"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/welcome"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="50dp"
-        android:fontFamily="serif"
-        android:gravity="center"
-        android:text="Welcome"
-        android:textColor="#184A2C"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@id/loginText"
-        app:layout_constraintEnd_toEndOf="@id/flowerImage"
-        app:layout_constraintStart_toStartOf="@id/flowerImage"
-        app:layout_constraintTop_toBottomOf="@id/flowerImage" />
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        tools:context=".activities.LoginActivity">
 
-    <TextView
-        android:id="@+id/loginText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:fontFamily="monospace"
-        android:gravity="center"
-        android:text="Login to your account"
-        android:textColor="#C5C5C5"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/welcome"
-        app:layout_constraintStart_toStartOf="@id/welcome"
-        app:layout_constraintTop_toBottomOf="@id/welcome" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="@id/loginText"
-        app:layout_constraintStart_toStartOf="@id/loginText"
-        app:layout_constraintTop_toBottomOf="@+id/loginText">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/flowerImage"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/aha_logo"
+            app:layout_constraintBottom_toTopOf="@+id/welcome"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/phone_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <TextView
+            android:id="@+id/welcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            app:errorEnabled="true"
-            app:errorTextColor="#FF0000"
-            >
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="serif"
+            android:gravity="center"
+            android:text="Welcome"
+            android:textColor="#184A2C"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/loginText"
+            app:layout_constraintEnd_toEndOf="@id/flowerImage"
+            app:layout_constraintStart_toStartOf="@id/flowerImage"
+            app:layout_constraintTop_toBottomOf="@id/flowerImage" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/phntxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Phone No."
-                android:drawableStart="@drawable/baseline_local_phone_24"
-                android:drawablePadding="20dp"
-
-                android:inputType="textEmailAddress"
-                android:outlineAmbientShadowColor="@color/black"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/otp_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <TextView
+            android:id="@+id/loginText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            app:errorEnabled="true"
+            android:layout_marginHorizontal="30dp"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:text="Login to your account"
+            android:textColor="#C5C5C5"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@id/welcome"
+            app:layout_constraintStart_toStartOf="@id/welcome"
+            app:layout_constraintTop_toBottomOf="@id/welcome" />
 
-            app:errorTextColor="#FF0000">
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/loginText"
+            app:layout_constraintStart_toStartOf="@id/loginText"
+            app:layout_constraintTop_toBottomOf="@+id/loginText">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/otptxt"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phone_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="OTP"
-                android:drawableStart="@drawable/baseline_lock_open_24"
-                android:drawablePadding="20dp"
-                android:inputType="number"
-                android:outlineAmbientShadowColor="@color/black"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="4dp"
+                app:errorEnabled="true"
+                app:errorTextColor="#FF0000">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phntxt"
+                    android:maxLength="10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/baseline_local_phone_24"
+                    android:drawablePadding="20dp"
+                    android:hint="Phone No."
+
+                    android:inputType="textEmailAddress"
+                    android:outlineAmbientShadowColor="@color/black"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-    </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/loginButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="150dp"
-        android:fontFamily="serif"
-        android:text="Login"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout2" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="150dp"
+            android:fontFamily="serif"
+            android:text="Login"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="dddddddddddddddddd"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/loginButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linearLayout2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

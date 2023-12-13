@@ -1,10 +1,14 @@
 package com.example.ahasolarapp.repository
 
 import androidx.lifecycle.MutableLiveData
+import com.example.ahasolarapp.R
+import com.example.ahasolarapp.api.ApiResponse
 import com.example.ahasolarapp.model.LeadListRequest
 import com.example.ahasolarapp.api.ApiService
 import com.example.ahasolarapp.model.LeadDeleteRequest
+import com.example.ahasolarapp.model.LeadModel
 import com.example.ahasolarapp.model.LeadResponse
+import com.example.ahasolarapp.model.LoginRequest
 import com.example.ahasolarapp.model.OtpVerifyRequest
 import com.example.ahasolarapp.model.VerifyData
 import com.google.gson.JsonObject
@@ -15,60 +19,50 @@ import retrofit2.Response
 class LeadRepository(private val apiService: ApiService) {
 
 
-    suspend fun getLeadList(authToken: String, request: LeadListRequest): Response<LeadResponse> {
+    fun getLeadList(
+        url: String = "",
+        apiRequest: JsonObject,
+        authToken: String,
+        apiResponse: MutableLiveData<List<LeadModel>>
+    ) {
+
+
         val headers = mapOf("Authorization" to "Bearer $authToken")
-        return apiService.getLeadList(headers, request)
+        apiService.getLeadListWithHeader(url, headers, apiRequest)
+            .enqueue(object : Callback<LeadResponse> {
+                override fun onResponse(
+                    call: Call<LeadResponse>,
+                    response: Response<LeadResponse>
+                ) {
+                    apiResponse.value = response.body()!!.data.list
+
+                }
+
+                override fun onFailure(call: Call<LeadResponse>, t: Throwable) {
+                    apiResponse.value = null
+                }
+
+
+            })
+
     }
 
-    suspend fun deleteLead(authToken: String, request: LeadDeleteRequest): Response<LeadResponse> {
+    /*suspend fun deleteLead(
+        authToken: String,
+        request: LeadDeleteRequest
+    ): Response<LeadResponse> {
         val headers = mapOf("Authorization" to "Bearer $authToken")
         return apiService.deleteLead(headers, request)
     }
 
-//    suspend fun verifyOtp(request: OtpVerifyRequest): Response<VerifyData<Any?>> {
-//        return apiService.verifyOtp(request)
-//    }
-
-    fun verifyOtpApiRepo(url: String = "", apiRequest: JsonObject, apiResponse: MutableLiveData<String>) {
-        apiService.postApiNoHeaders(url, apiRequest)
-            .enqueue(object : Callback<VerifyData<Any>> {
-                override fun onResponse(
-                    call: Call<VerifyData<Any>>,
-                    response: Response<VerifyData<Any>>
-                ) {
-
-                    if (response.body() != null) {
-                        if (response.body()!!.status == 1) {
-                            if (response.body()!!.statusCode == 200) {
-                                if (response.body()!!.data != null) {
-                                    apiResponse.value = response.body()!!.statusCode.toString()
-                                } else {
-                                    // Replace with appropriate function
-                                    // context.toastMessage(response.body()!!.message.toString())
-                                    apiResponse.value = null
-                                }
-                            } else if (response.body()!!.statusCode == 401) {
-                                // Replace with appropriate function
-                                // context.toastMessage(response.body()!!.message.toString())
-                                apiResponse.value = null
-                            }
-                        } else {
-                            // Replace with appropriate function
-                            // context.toastMessage(response.body()!!.message.toString())
-                        }
-                    } else {
-                        apiResponse.value = null
-                    }
-                }
-
-                override fun onFailure(call: Call<VerifyData<Any>>, t: Throwable) {
-                    // Replace dismissDialog() with appropriate function
-                    // ...
-                    apiResponse.value = null
-                }
-            })
+    suspend fun verifyOtp(request: OtpVerifyRequest): Response<VerifyData> {
+        return apiService.verifyOtp(request)
     }
 
+    suspend fun sendOtp(request: LoginRequest): Response<LeadResponse> {
+        return apiService.sendOtp(request)
+    }
+*/
 }
 
 

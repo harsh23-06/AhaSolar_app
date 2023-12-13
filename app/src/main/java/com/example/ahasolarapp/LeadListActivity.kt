@@ -37,16 +37,24 @@
 
             leadViewsModel = ViewModelProvider(this, LeadViewModelFactory(leadRepository))[LeadViewModel::class.java]
 
-            leadViewsModel.leadListLiveData.observe(this, Observer {
-
+            leadViewsModel._leadListLiveData.observe(this, Observer {
                 originalList = it
                 adapter.updateList(originalList)
                 binding.noResFoundLL.isVisible = originalList.isEmpty()
-
             })
 
+
+
+
+            /*observe(this, Observer {
+
+
+
+
+            })*/
+
             val authToken =
-                "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWdpbmctYWhhc29sYXItcmV3YW1wLmFoYXNvbGFyLmluL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzAyMzYwNzc1LCJleHAiOjE3MDI1NTI3NzUsIm5iZiI6MTcwMjM2MDc3NSwianRpIjoiN2lvZDBEYU04TXZUR2c4cCIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.wPij3OHL3UFFLypSUJzpKsLOihJoE9EhhGhaofjK1hc"
+                "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWdpbmctYWhhc29sYXItcmV3YW1wLmFoYXNvbGFyLmluL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzAyNDYwNDQ3LCJleHAiOjE3MDI2NTI0NDcsIm5iZiI6MTcwMjQ2MDQ0NywianRpIjoiaXZMc1Btc2c5RWRyTlNIZiIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.16O6L6gRhYFxk-wSfJbTtiPVw6lTiei2pkFi266vefE"
             leadViewsModel.getLeadList(authToken)
 
             binding.searchBarLL.setOnClickListener(setupSearchBar())
@@ -90,14 +98,14 @@
         }
 
         override fun onDeleteClick(position: Int) {
-            val leadIdToDelete = leadViewsModel.leadListLiveData.value?.get(position)?.leadId
+            /*val leadIdToDelete = leadViewsModel.leadListLiveData.value?.get(position)?.leadId
             Log.d("TAG", "onDeleteClick: $leadIdToDelete")
             if (leadIdToDelete != null) {
                 val authToken =
                     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWdpbmctYWhhc29sYXItcmV3YW1wLmFoYXNvbGFyLmluL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzAyMzYwNzc1LCJleHAiOjE3MDI1NTI3NzUsIm5iZiI6MTcwMjM2MDc3NSwianRpIjoiN2lvZDBEYU04TXZUR2c4cCIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.wPij3OHL3UFFLypSUJzpKsLOihJoE9EhhGhaofjK1hc"
                 leadViewsModel.deleteLead(authToken, leadIdToDelete)
 
-            }
+            }*/
         }
 
     }
