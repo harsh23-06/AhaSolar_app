@@ -27,7 +27,7 @@ class LeadRepository(private val apiService: ApiService) {
     ) {
 
 
-        val headers = mapOf("Authorization" to "Bearer $authToken")
+        val headers = "Bearer $authToken"
         apiService.getLeadListWithHeader(url, headers, apiRequest)
             .enqueue(object : Callback<LeadResponse> {
                 override fun onResponse(
