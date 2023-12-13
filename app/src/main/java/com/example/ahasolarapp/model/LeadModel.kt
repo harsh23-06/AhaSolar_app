@@ -52,7 +52,7 @@ data class DeleteLeadRequest(
     val leadId: Int
 )
 
-data class VerifyData (
+data class VerifyData<T>(
 
     @SerializedName("id"               ) var id               : String?           = null,
     @SerializedName("name"             ) var name             : String?           = null,

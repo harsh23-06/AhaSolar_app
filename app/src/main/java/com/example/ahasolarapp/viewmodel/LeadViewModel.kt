@@ -2,14 +2,19 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.ahasolarapp.api.ApiService
 import com.example.ahasolarapp.model.DeleteLeadRequest
 import com.example.ahasolarapp.model.LeadDeleteRequest
 import com.example.ahasolarapp.model.LeadListRequest
 import com.example.ahasolarapp.model.LeadModel
+import com.example.ahasolarapp.model.LeadViewModelFactory
+import com.example.ahasolarapp.model.OTPViewModel
 import com.example.ahasolarapp.model.OtpVerifyRequest
 import com.example.ahasolarapp.repository.LeadRepository
+import com.example.ahasolarapp.utils.Constants
+import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -17,8 +22,11 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
 
     private val _leadListLiveData = MutableLiveData<List<LeadModel>>()
     val leadListLiveData: LiveData<List<LeadModel>> = _leadListLiveData
-    private val _filteredLeadListLiveData = MutableLiveData<List<LeadModel>>()
-    val filteredLeadListLiveData: LiveData<List<LeadModel>> = _filteredLeadListLiveData
+    private val loginWithMobileResponse: MutableLiveData<String> = MutableLiveData<String>()
+    val otpViewModel: OTPViewModel by lazy {
+        ViewModelProvider(this, LeadViewModelFactory(repository)).get(OTPViewModel::class.java)
+    }
+
 
 
 
@@ -42,14 +50,6 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
         }
     }
 
-
-    fun filterLeads(query: String) {
-        val filteredList = _leadListLiveData.value
-            ?.filter { it.projectName.contains(query, ignoreCase = true) }
-            ?: emptyList()
-
-        _filteredLeadListLiveData.postValue(filteredList)
-    }
 
 
 
@@ -76,24 +76,40 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
         }
     }
 
-    fun verifyOtp(otpRequest: OtpVerifyRequest) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val response = repository.verifyOtp(otpRequest)
-                if (response.isSuccessful) {
-                    // Handle successful OTP verification
-                    val verifyData = response.body()
-                    Log.e("OTP Verification", "Verified OTP")
-                } else {
-                    // Handle error case
-                    Log.e("OTP Verification", "Error verifying OTP")
-                }
-            } catch (exception: Exception) {
-                // Handle exception
-                Log.e("OTP Verification", "Error verifying OTP", exception)
-            }
-        }
-    }
+//    fun verifyOtp(mobile: String, otp: String) {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            try {
+//                val otpVerifyRequest = OtpVerifyRequest(mobile = "1111111111", otp = "123456")
+//                val response = repository.verifyOtp(otpVerifyRequest)
+//                if (response.isSuccessful) {
+//                    // Handle successful OTP verification
+//                    val verifyData = response.body()
+//                    Log.e("OTP Verification", "Verified OTP")
+//                } else {
+//                    // Handle error case
+//                    Log.e("OTP Verification", "Error verifying OTP")
+//                }
+//            } catch (exception: Exception) {
+//                // Handle exception
+//                Log.e("OTP Verification", "Error verifying OTP", exception)
+//            }
+//        }
+//    }
 
+
+    fun loginWithMobile() {
+        val apiRequest: JsonObject = JsonObject()
+        apiRequest.addProperty("emailOrMobile", mobile.get().toString())
+
+        repository!!.loginWithMobileApiRepo(
+            isLoaderRequired = true,
+            Constants.POST_SEND_OTP,
+            apiRequest,
+            loginWithMobileResponse
+        )
+
+        // Call OTP verification after sending OTP
+        otpViewModel.verifyOtp(mobile.get().toString(), "123456")
+    }
 
 }

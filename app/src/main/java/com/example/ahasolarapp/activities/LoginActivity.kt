@@ -44,8 +44,7 @@ class LoginActivity : AppCompatActivity() {
             val phoneNumber = binding.phntxt.text.toString()
             val otp = binding.otptxt.text.toString()
 
-            val otpRequest = OtpVerifyRequest(mobile = phoneNumber, otp = otp)
-            leadViewsModel.verifyOtp(otpRequest)
+            leadViewsModel.verifyOtp(phoneNumber,otp)
 
         }
 
