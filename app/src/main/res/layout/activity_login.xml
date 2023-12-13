@@ -77,6 +77,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/phntxt"
+                    android:maxLength="10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/baseline_local_phone_24"
@@ -111,7 +112,8 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="dddddddddddddddddd"
+            tools:text="dddddddddddddddddd"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@id/loginButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

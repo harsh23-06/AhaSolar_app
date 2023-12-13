@@ -8,52 +8,50 @@ import com.example.ahasolarapp.model.DeleteLeadRequest
 import com.example.ahasolarapp.model.LeadDeleteRequest
 import com.example.ahasolarapp.model.LeadListRequest
 import com.example.ahasolarapp.model.LeadModel
+import com.example.ahasolarapp.model.LeadResponse
+import com.example.ahasolarapp.model.LoginRequest
 import com.example.ahasolarapp.model.OtpVerifyRequest
 import com.example.ahasolarapp.repository.LeadRepository
+import com.example.ahasolarapp.utils.Constants
+import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
 
-    private val _leadListLiveData = MutableLiveData<List<LeadModel>>()
-    val leadListLiveData: LiveData<List<LeadModel>> = _leadListLiveData
+    val _leadListLiveData: MutableLiveData<List<LeadModel>> = MutableLiveData<List<LeadModel>>()
+//    val leadListLiveData: LiveData<List<LeadModel>> = _leadListLiveData
     private val _filteredLeadListLiveData = MutableLiveData<List<LeadModel>>()
-    val filteredLeadListLiveData: LiveData<List<LeadModel>> = _filteredLeadListLiveData
+    val otpSend: MutableLiveData<LeadResponse> = MutableLiveData()
 
 
 
     fun getLeadList(authToken: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val leadListRequest = LeadListRequest(search = "", page = 1, pageSize = 10)
-                val response = repository.getLeadList(authToken, leadListRequest)
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        _leadListLiveData.postValue(responseBody.data.list)
-                    } else {
-                        Log.d("Error in response body", "getLeadList: Error")
-                    }
-                }
 
-            } catch (exception: Exception) {
-                Log.d("Error in response body", "getLeadList: Error")
-            }
+                val apiRequest = JsonObject()
+                apiRequest.addProperty("search","")
+                apiRequest.addProperty("page",1)
+                apiRequest.addProperty("pageSize",10)
+                repository.getLeadList(Constants.POST_GET_LEAD_LIST,apiRequest,authToken,_leadListLiveData)
+//                if (response.isSuccessful) {
+//                    val responseBody = response.body()
+//                    if (responseBody != null) {
+//                        _leadListLiveData.postValue(responseBody.data.list)
+//                    } else {
+//                        Log.d("Error in response body", "getLeadList: Error")
+//                    }
+//                }
+
+
         }
     }
 
 
-    fun filterLeads(query: String) {
-        val filteredList = _leadListLiveData.value
-            ?.filter { it.projectName.contains(query, ignoreCase = true) }
-            ?: emptyList()
-
-        _filteredLeadListLiveData.postValue(filteredList)
-    }
 
 
 
-    fun deleteLead(authToken: String, leadId: Int) {
+
+    /*fun deleteLead(authToken: String, leadId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val deleteRequest = LeadDeleteRequest(actionType = 3, leadId = leadId)
@@ -94,6 +92,21 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
             }
         }
     }
+    fun sendOtp(loginRequest: LoginRequest){
+        viewModelScope.launch(Dispatchers.IO) {
+            try{
+                val response = repository.sendOtp(loginRequest)
+                if(response.isSuccessful){
+                    val sendOtp = response.body()
+                    otpSend.postValue(sendOtp!!)
+                    Log.d("OtpSend","Otp Send perfectly ${sendOtp!!.message}")
+                }
+            }catch (exception: Exception){
+                Log.e("OTP not send","Error",exception)
+            }
+        }
+    }
 
 
 }
+*/
