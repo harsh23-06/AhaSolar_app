@@ -1,10 +1,12 @@
 package com.example.ahasolarapp.activities
 
 import LeadViewModel
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.ahasolarapp.LeadListActivity
 import com.example.ahasolarapp.api.ApiService
 import com.example.ahasolarapp.api.RetrofitInstance
 import com.example.ahasolarapp.databinding.ActivityLoginBinding
@@ -25,8 +27,9 @@ class LoginActivity : AppCompatActivity() {
 
         binding.phoneLayout.error = null
 //        binding.otpLayout.error = null
-        val leadService = RetrofitInstance.retrofit.create(ApiService::class.java)
-        val leadRepository = LeadRepository(leadService)
+        val apiInit = RetrofitInstance.getRetrofitClientObj(this@LoginActivity)
+
+        val leadRepository = LeadRepository(apiInit.getApiInterface())
         leadViewsModel = ViewModelProvider(this, LeadViewModelFactory(leadRepository))[LeadViewModel::class.java]
 
 
@@ -42,6 +45,9 @@ class LoginActivity : AppCompatActivity() {
                     binding.textView.text = it.message
 
             })
+            val intent = Intent(this@LoginActivity,LeadListActivity::class.java)
+            startActivity(intent)
+            finish()
 
         }
 

@@ -8,7 +8,7 @@ data class LeadResponse(
     val statusCode: Int,
     val message: String,
     val data: LeadData,
-    val exceptions: Any // You might want to create a data class for exceptions if needed
+    val exceptions: Any
 )
 
 data class LeadData(
@@ -33,17 +33,17 @@ data class LeadModel(
     val sourceLeadName: String?,
     val categoryName: String,
     val days: Int,
-    val uniqueId: Any?, // Depending on the actual type
+    val uniqueId: Any?,
     val contractLoad: String,
     val capacityKw: String,
     val avgMonthlyBill: Int,
     val avgGenerate: Int,
     val loanRequired: Int,
-    val existingCapacity: Any?, // Depending on the actual type
-    val billDocument: Any?, // Depending on the actual type
+    val existingCapacity: Any?,
+    val billDocument: Any?,
     val branch: String,
     val createdAt: String,
-    val pvCapacity: Double, // Depending on the actual type
+    val pvCapacity: Double,
     val srNo: Int
 )
 
@@ -51,13 +51,15 @@ data class DeleteLeadRequest(
     val actionType: Int,
     val leadId: Int
 )
+
 data class OtpResponse(
     val status: Int,
     val statusCode: Int,
     val message: String,
-    val data: List<Any>, // Assuming data is an array, adjust the type accordingly
-    val exceptions: Map<String, Any> // Assuming exceptions is a map, adjust the type accordingly
+    val data: List<Any>,
+    val exceptions: Map<String, Any>
 )
+
 data class VerifyData(
 
     @SerializedName("id") var id: String? = null,

@@ -1,17 +1,20 @@
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.ahasolarapp.model.LeadDeleteRequest
 import com.example.ahasolarapp.model.LeadModel
 import com.example.ahasolarapp.model.OtpResponse
+import com.example.ahasolarapp.model.OtpVerifyRequest
 import com.example.ahasolarapp.repository.LeadRepository
 import com.example.ahasolarapp.utils.Constants
 import com.google.gson.JsonObject
+import kotlinx.coroutines.Dispatchers
 
 class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
 
     val _leadListLiveData: MutableLiveData<List<LeadModel>> = MutableLiveData<List<LeadModel>>()
+    val _deleteData: MutableLiveData<String> = MutableLiveData<String>()
 
-    //    val leadListLiveData: LiveData<List<LeadModel>> = _leadListLiveData
-    private val _filteredLeadListLiveData = MutableLiveData<List<LeadModel>>()
     val otpSend: MutableLiveData<OtpResponse> = MutableLiveData()
 
 
@@ -38,11 +41,15 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
 
     }
 
-}
 
+    fun deleteLead(authToken: String, leadId: Int) {
 
-/*fun deleteLead(authToken: String, leadId: Int) {
-    viewModelScope.launch(Dispatchers.IO) {
+        val apiRequest = JsonObject()
+        apiRequest.addProperty("actionType", 3)
+        apiRequest.addProperty("leadId", leadId)
+        repository.deleteLead(Constants.POST_DELETE_LIST_ITEM, apiRequest, authToken, _deleteData)
+
+        /* viewModelScope.launch(Dispatchers.IO) {
         try {
             val deleteRequest = LeadDeleteRequest(actionType = 3, leadId = leadId)
             Log.d("TAG", "deleteLead: $deleteRequest")
@@ -61,8 +68,10 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
             // Handle exception
             Log.e("Lead Deletion", "Error deleting lead with ID: $leadId", exception)
         }
+    }*/
     }
 }
+/*
 
 fun verifyOtp(otpRequest: OtpVerifyRequest) {
     viewModelScope.launch(Dispatchers.IO) {
@@ -81,7 +90,8 @@ fun verifyOtp(otpRequest: OtpVerifyRequest) {
             Log.e("OTP Verification", "Error verifying OTP", exception)
         }
     }
-}*/
+}
+*/
 
 
 

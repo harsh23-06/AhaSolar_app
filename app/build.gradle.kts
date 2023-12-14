@@ -53,7 +53,9 @@ dependencies {
 
     //Retrofit https://square.github.io/retrofit/ - latest vesion https://github.com/square/retrofit.
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation ("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
+    implementation ("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.5")
+    implementation("com.squareup.retrofit2:converter-scalars:2.7.0")
 
     //Gson -> json data to java or kotlin format
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
