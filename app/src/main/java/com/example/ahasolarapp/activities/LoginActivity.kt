@@ -25,11 +25,10 @@ class LoginActivity : AppCompatActivity() {
 
         binding.phoneLayout.error = null
 //        binding.otpLayout.error = null
+        val leadService = RetrofitInstance.retrofit.create(ApiService::class.java)
+        val leadRepository = LeadRepository(leadService)
+        leadViewsModel = ViewModelProvider(this, LeadViewModelFactory(leadRepository))[LeadViewModel::class.java]
 
-        leadViewsModel = ViewModelProvider(
-            this,
-            LeadViewModelFactory(LeadRepository(RetrofitInstance.retrofit.create(ApiService::class.java)))
-        )[LeadViewModel::class.java]
 
 
 

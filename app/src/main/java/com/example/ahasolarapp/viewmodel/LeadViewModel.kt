@@ -1,21 +1,10 @@
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.ahasolarapp.api.ApiService
-import com.example.ahasolarapp.model.DeleteLeadRequest
-import com.example.ahasolarapp.model.LeadDeleteRequest
-import com.example.ahasolarapp.model.LeadListRequest
 import com.example.ahasolarapp.model.LeadModel
-import com.example.ahasolarapp.model.LeadResponse
-import com.example.ahasolarapp.model.LoginRequest
-import com.example.ahasolarapp.model.OtpVerifyRequest
+import com.example.ahasolarapp.model.OtpResponse
 import com.example.ahasolarapp.repository.LeadRepository
 import com.example.ahasolarapp.utils.Constants
 import com.google.gson.JsonObject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
 
@@ -23,7 +12,7 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
 
     //    val leadListLiveData: LiveData<List<LeadModel>> = _leadListLiveData
     private val _filteredLeadListLiveData = MutableLiveData<List<LeadModel>>()
-    val otpSend: MutableLiveData<LeadResponse> = MutableLiveData()
+    val otpSend: MutableLiveData<OtpResponse> = MutableLiveData()
 
 
     fun getLeadList(authToken: String) {
