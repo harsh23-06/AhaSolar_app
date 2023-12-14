@@ -5,6 +5,7 @@ import com.example.ahasolarapp.model.LeadListRequest
 import com.example.ahasolarapp.model.LeadModel
 import com.example.ahasolarapp.model.LeadResponse
 import com.example.ahasolarapp.model.LoginRequest
+import com.example.ahasolarapp.model.OtpResponse
 import com.example.ahasolarapp.model.OtpVerifyRequest
 import com.example.ahasolarapp.model.VerifyData
 import com.google.gson.JsonObject
@@ -27,24 +28,24 @@ interface ApiService {
         @Body request: JsonObject
     ): Call<LeadResponse>
 
-    @POST()
+    @POST
      fun deleteLeadWithHeader(
         @Url endpoint: String,
         @HeaderMap headers: Map<String, String>,
         @Body request: LeadDeleteRequest
     ): Call<LeadResponse>
 
-    @POST()
+    @POST
     fun verifyOtpWithNoHeader(
         @Url endpoint: String,
 
         @Body request: OtpVerifyRequest
     ): Call<VerifyData>
 
-    @POST()
+    @POST
      fun sendOtpWithNoHeader(
         @Url endpoint: String,
 
-        @Body request: LoginRequest
-    ): Call<LeadResponse>
+        @Body request: JsonObject
+    ): Call<OtpResponse>
 }

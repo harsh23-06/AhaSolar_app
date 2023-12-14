@@ -25,30 +25,22 @@ class LoginActivity : AppCompatActivity() {
 
         binding.phoneLayout.error = null
 //        binding.otpLayout.error = null
-
-        leadViewsModel = ViewModelProvider(
-            this,
-            LeadViewModelFactory(LeadRepository(RetrofitInstance.retrofit.create(ApiService::class.java)))
-        )[LeadViewModel::class.java]
+        val leadService = RetrofitInstance.retrofit.create(ApiService::class.java)
+        val leadRepository = LeadRepository(leadService)
+        leadViewsModel = ViewModelProvider(this, LeadViewModelFactory(leadRepository))[LeadViewModel::class.java]
 
 
-        // Inside LoginActivity
 
-//        val otpRequest = OtpVerifyRequest(mobile = "1111111111", otp = "123456")
-//        leadViewsModel.verifyOtp(otpRequest)
 
         binding.loginButton.setOnClickListener {
             val phoneNumber = binding.phntxt.text.toString()
-//            val otp = binding.otptxt.text.toString()
 
-            val otpRequest = LoginRequest(phoneNumber)
-
-//            leadViewsModel.sendOtp(otpRequest)
+            leadViewsModel.sendOtp(phoneNumber)
 
             leadViewsModel.otpSend.observe(this, Observer {
-                if(it.statusCode == 200) {
+
                     binding.textView.text = it.message
-                }
+
             })
 
         }

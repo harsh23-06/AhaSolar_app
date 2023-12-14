@@ -51,7 +51,13 @@ data class DeleteLeadRequest(
     val actionType: Int,
     val leadId: Int
 )
-
+data class OtpResponse(
+    val status: Int,
+    val statusCode: Int,
+    val message: String,
+    val data: List<Any>, // Assuming data is an array, adjust the type accordingly
+    val exceptions: Map<String, Any> // Assuming exceptions is a map, adjust the type accordingly
+)
 data class VerifyData(
 
     @SerializedName("id") var id: String? = null,

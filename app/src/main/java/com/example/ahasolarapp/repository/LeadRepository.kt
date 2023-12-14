@@ -1,15 +1,10 @@
 package com.example.ahasolarapp.repository
 
 import androidx.lifecycle.MutableLiveData
-import com.example.ahasolarapp.R
-import com.example.ahasolarapp.api.ApiResponse
-import com.example.ahasolarapp.model.LeadListRequest
 import com.example.ahasolarapp.api.ApiService
-import com.example.ahasolarapp.model.LeadDeleteRequest
 import com.example.ahasolarapp.model.LeadModel
 import com.example.ahasolarapp.model.LeadResponse
-import com.example.ahasolarapp.model.LoginRequest
-import com.example.ahasolarapp.model.OtpVerifyRequest
+import com.example.ahasolarapp.model.OtpResponse
 import com.example.ahasolarapp.model.VerifyData
 import com.google.gson.JsonObject
 import retrofit2.Call
@@ -47,6 +42,28 @@ class LeadRepository(private val apiService: ApiService) {
 
     }
 
+    fun sendOtp(
+        url: String = "",
+        apiRequest: JsonObject,
+        apiResponse: MutableLiveData<OtpResponse>
+    ) {
+
+        apiService.sendOtpWithNoHeader(url, apiRequest).enqueue(object : Callback<OtpResponse> {
+            override fun onResponse(
+                call: Call<OtpResponse>,
+                response: Response<OtpResponse>
+            ) {
+                apiResponse.value = response.body()
+            }
+
+            override fun onFailure(call: Call<OtpResponse>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+
+    }
     /*suspend fun deleteLead(
         authToken: String,
         request: LeadDeleteRequest
