@@ -94,13 +94,13 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/loginButton"
+            android:id="@+id/sendOtpButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="150dp"
             android:fontFamily="serif"
-            android:text="Login"
+            android:text="Send OTP"
             android:textAlignment="center"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -114,7 +114,7 @@
             android:layout_height="wrap_content"
             tools:text="dddddddddddddddddd"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@id/loginButton"
+            app:layout_constraintBottom_toTopOf="@id/sendOtpButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linearLayout2" />

@@ -38,14 +38,12 @@ interface ApiService {
     @POST
     fun verifyOtpWithNoHeader(
         @Url endpoint: String,
-
-        @Body request: OtpVerifyRequest
+        @Body request: JsonObject
     ): Call<VerifyData>
 
     @POST
      fun sendOtpWithNoHeader(
         @Url endpoint: String,
-
         @Body request: JsonObject
     ): Call<OtpResponse>
 }

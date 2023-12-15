@@ -1,6 +1,9 @@
     package com.example.ahasolarapp
 
     import LeadViewModel
+    import android.content.Context
+    import android.content.Intent
+    import android.content.SharedPreferences
     import androidx.appcompat.app.AppCompatActivity
     import android.os.Bundle
     import android.util.Log
@@ -10,6 +13,7 @@
     import androidx.databinding.adapters.SearchViewBindingAdapter.setOnQueryTextListener
     import androidx.lifecycle.Observer
     import androidx.lifecycle.ViewModelProvider
+    import com.example.ahasolarapp.activities.LoginActivity
     import com.example.ahasolarapp.adapter.LeadListAdapter
     import com.example.ahasolarapp.adapter.OnItemClickListener
     import com.example.ahasolarapp.api.ApiService
@@ -24,6 +28,8 @@
         private lateinit var adapter: LeadListAdapter
         private lateinit var leadViewsModel: LeadViewModel
         private var originalList: List<LeadModel> = mutableListOf()
+        private lateinit var sharedPreferences: SharedPreferences
+
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -36,6 +42,16 @@
             val leadRepository = LeadRepository(leadService)
 
             leadViewsModel = ViewModelProvider(this, LeadViewModelFactory(leadRepository))[LeadViewModel::class.java]
+
+            sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+
+            // Check if the user is logged in
+            if (!isLoggedIn()) {
+                // If not logged in, redirect to the login activity
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
 
             leadViewsModel._leadListLiveData.observe(this, Observer {
                 originalList = it
@@ -54,12 +70,17 @@
             })*/
 
             val authToken =
-                "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWdpbmctYWhhc29sYXItcmV3YW1wLmFoYXNvbGFyLmluL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzAyNDYwNDQ3LCJleHAiOjE3MDI2NTI0NDcsIm5iZiI6MTcwMjQ2MDQ0NywianRpIjoiaXZMc1Btc2c5RWRyTlNIZiIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.16O6L6gRhYFxk-wSfJbTtiPVw6lTiei2pkFi266vefE"
+                "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWdpbmctYWhhc29sYXItcmV3YW1wLmFoYXNvbGFyLmluL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzAyNTU1NTgwLCJleHAiOjE3MDI3NDc1ODAsIm5iZiI6MTcwMjU1NTU4MCwianRpIjoiRzRxaDRsalBBUTQ0OTdjVSIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.QDlIx3D5alioIWCegfrq7cDO6H771rcvRwyGtGYarbo"
             leadViewsModel.getLeadList(authToken)
 
             binding.searchBarLL.setOnClickListener(setupSearchBar())
 
             setupRecyclerView()
+        }
+
+        private fun isLoggedIn(): Boolean {
+            // Retrieve login state from SharedPreferences
+            return sharedPreferences.getBoolean("isLoggedIn", false)
         }
 
         private fun setupSearchBar(): View.OnClickListener {

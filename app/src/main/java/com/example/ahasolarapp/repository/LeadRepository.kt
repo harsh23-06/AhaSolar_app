@@ -45,7 +45,8 @@ class LeadRepository(private val apiService: ApiService) {
     fun sendOtp(
         url: String = "",
         apiRequest: JsonObject,
-        apiResponse: MutableLiveData<OtpResponse>
+        apiResponse: MutableLiveData<OtpResponse>,
+        function: () -> Unit
     ) {
 
         apiService.sendOtpWithNoHeader(url, apiRequest).enqueue(object : Callback<OtpResponse> {
@@ -64,6 +65,21 @@ class LeadRepository(private val apiService: ApiService) {
 
 
     }
+
+    fun verifyOtp(url: String = "", apiRequest: JsonObject, onComplete: (Boolean) -> Unit) {
+        apiService.verifyOtpWithNoHeader(url, apiRequest).enqueue(object : Callback<VerifyData> {
+            override fun onResponse(call: Call<VerifyData>, response: Response<VerifyData>) {
+                // Handle the response as needed
+                val success = response.isSuccessful // Adjust this based on your API response
+                onComplete.invoke(success)
+            }
+
+            override fun onFailure(call: Call<VerifyData>, t: Throwable) {
+                // Handle failure
+                onComplete.invoke(false)
+            }
+        })
+    }
     /*suspend fun deleteLead(
         authToken: String,
         request: LeadDeleteRequest
@@ -76,9 +92,7 @@ class LeadRepository(private val apiService: ApiService) {
         return apiService.verifyOtp(request)
     }
 
-    suspend fun sendOtp(request: LoginRequest): Response<LeadResponse> {
-        return apiService.sendOtp(request)
-    }
+
 */
 }
 
