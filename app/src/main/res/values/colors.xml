@@ -3,5 +3,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="off_white">#F5FAFE</color>
-
+    <color name="peach">#F9F0E0</color>
+    <color name="red">#FF0000</color>
+    <color name="dark_green">#184A2C</color>
+    <color name="grey">#C5C5C5</color>
+    <color name="dark_grey">#535353</color>
+    <color name="orange">#C3370A</color>
+    <color name="light_green">#159A67</color>
 </resources>

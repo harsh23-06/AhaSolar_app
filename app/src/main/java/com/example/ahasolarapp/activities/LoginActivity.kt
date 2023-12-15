@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         binding.loginButton.setOnClickListener {
-            val phoneNumber = binding.phntxt.text.toString()
+            val phoneNumber = binding.phnText.text.toString()
 
             leadViewsModel.sendOtp(phoneNumber)
 

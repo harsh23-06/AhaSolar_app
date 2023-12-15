@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         tools:context=".activities.LoginActivity">
 
 
@@ -33,8 +33,8 @@
             android:layout_marginTop="50dp"
             android:fontFamily="serif"
             android:gravity="center"
-            android:text="Welcome"
-            android:textColor="#184A2C"
+            android:text="@string/welcome"
+            android:textColor="@color/dark_green"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@id/loginText"
             app:layout_constraintEnd_toEndOf="@id/flowerImage"
@@ -48,8 +48,8 @@
             android:layout_marginHorizontal="30dp"
             android:fontFamily="monospace"
             android:gravity="center"
-            android:text="Login to your account"
-            android:textColor="#C5C5C5"
+            android:text="@string/login_to_your_account"
+            android:textColor="@color/grey"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@id/welcome"
             app:layout_constraintStart_toStartOf="@id/welcome"
@@ -73,16 +73,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 app:errorEnabled="true"
-                app:errorTextColor="#FF0000">
+                app:errorTextColor="@color/red">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phntxt"
+                    android:id="@+id/phnText"
                     android:maxLength="10"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:drawableStart="@drawable/baseline_local_phone_24"
                     android:drawablePadding="20dp"
-                    android:hint="Phone No."
+                    android:hint="@string/phone_no"
 
                     android:inputType="textEmailAddress"
                     android:outlineAmbientShadowColor="@color/black"
@@ -100,7 +100,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="150dp"
             android:fontFamily="serif"
-            android:text="Login"
+            android:text="@string/login"
             android:textAlignment="center"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -112,7 +112,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="dddddddddddddddddd"
+            tools:text="_____________"
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@id/loginButton"
             app:layout_constraintEnd_toEndOf="parent"

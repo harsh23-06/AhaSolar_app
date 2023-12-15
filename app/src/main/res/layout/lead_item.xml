@@ -16,7 +16,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:elevation="5dp"
-        android:shadowColor="#535353"
+        android:shadowColor="@color/dark_grey"
         android:background="@color/off_white"
         app:strokeColor="@color/black"
         app:strokeWidth="0.5dp"
@@ -39,12 +39,12 @@
 
                 <TextView
                     android:id="@+id/name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:maxLength="25"
-                    android:hint="Harsh"
+                    android:hint="@string/harsh"
                     android:maxLines="1"
                     android:text="@{model.projectName + ` (` + (model.pvCapacity &lt; 0.0 ? `-` : String.valueOf(model.pvCapacity)) + ` kW)`}"
                     />
@@ -72,12 +72,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:backgroundTint="#C3370A"
+                    android:backgroundTint="@color/orange"
                     android:background="@drawable/textview"
                     android:textColor="@color/white"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="3dp"
-                    android:hint="Lead Project"
+                    android:hint="@string/lead_project"
                     android:text="@{model.categoryName.empty?`-`:model.categoryName}" />
 
                 <TextView
@@ -85,19 +85,19 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:background="@drawable/textview"
-                    android:backgroundTint="#159A67"
+                    android:backgroundTint="@color/light_green"
                     android:textColor="@color/white"
                     android:layout_marginHorizontal="3dp"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="3dp"
-                    android:hint="Category Status"
+                    android:hint="@string/category_status"
                     android:text="@{model.statusName}"/>
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="end"
-                    android:hint="Model id"
+                    android:hint="@string/model_id"
                     android:text="@{``+model.leadId}"/>
             </LinearLayout>
 
@@ -114,14 +114,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Contract Load" />
+                    android:text="@string/contract_load" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Proposed Capacity" />
+                    android:text="@string/proposed_capacity" />
 
 
             </LinearLayout>
@@ -140,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:hint="contractloadcapcity"
+                    android:hint="@string/contractLoadCapcity"
                     android:text="@{String.valueOf(model.contractLoad)+` (kW)`}"/>
                 <!--                -->
                 <TextView
@@ -148,7 +148,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:hint="proposedcapacity"
+                    android:hint="@string/proposedCapacity"
                     android:text="@{String.valueOf(model.capacityKw)+` (kW)`}"/>
                 <!--                -->
 
@@ -177,10 +177,10 @@
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:lines="2"
-                    android:gravity="center"
+                    android:gravity="start"
                     android:textAlignment="viewStart"
                     android:layout_gravity="center"
-                    android:hint="Address"
+                    android:hint="@string/address"
                     android:text="@{model.address.empty?`-`:model.address}"/>
             </LinearLayout>
 
@@ -201,13 +201,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
                     android:gravity="end"
-                    android:hint="Creator Name"
+                    android:hint="@string/creator_name"
                     android:text="@{model.sourceLeadName.empty?`-`:model.sourceLeadName}"
                      />
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:hint="Creator date"
+                    android:hint="@string/creator_date"
                     android:text="@{model.createdAt}"
                     />
             </LinearLayout>
