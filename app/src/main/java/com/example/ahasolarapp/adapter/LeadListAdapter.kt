@@ -3,9 +3,7 @@ package com.example.ahasolarapp.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.MenuInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +12,7 @@ import com.example.ahasolarapp.databinding.LeadItemBinding
 import com.example.ahasolarapp.model.LeadModel
 
 interface OnItemClickListener {
-    fun onDeleteClick(position: Int)
+    fun onDeleteClick(position: LeadModel)
 }
 
 
@@ -65,8 +63,8 @@ class LeadListAdapter(private val context: Context, private var originalList: Li
 
                     R.id.delete -> {
 
-                        onItemClickListener.onDeleteClick(position)
-                        deleteItem(position)
+                        onItemClickListener.onDeleteClick(originalList[position])
+                        //deleteItem(position)
                         true
                     }
 

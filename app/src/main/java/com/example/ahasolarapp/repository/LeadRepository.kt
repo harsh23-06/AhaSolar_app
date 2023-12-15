@@ -2,10 +2,14 @@ package com.example.ahasolarapp.repository
 
 import androidx.lifecycle.MutableLiveData
 import com.example.ahasolarapp.api.ApiService
+import com.example.ahasolarapp.model.LeadDeleteRequest
 import com.example.ahasolarapp.model.LeadModel
 import com.example.ahasolarapp.model.LeadResponse
+import com.example.ahasolarapp.model.LoginRequest
 import com.example.ahasolarapp.model.OtpResponse
+import com.example.ahasolarapp.model.OtpVerifyRequest
 import com.example.ahasolarapp.model.VerifyData
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -80,20 +84,27 @@ class LeadRepository(private val apiService: ApiService) {
             }
         })
     }
-    /*suspend fun deleteLead(
+    fun deleteLead(
+        url: String = "",
+        apiRequest: JsonObject,
         authToken: String,
-        request: LeadDeleteRequest
-    ): Response<LeadResponse> {
-        val headers = mapOf("Authorization" to "Bearer $authToken")
-        return apiService.deleteLead(headers, request)
+        apiResponse: MutableLiveData<String>
+    ){
+        val headers = "Bearer $authToken"
+
+        apiService.deleteLeadWithHeader(url,headers,apiRequest).enqueue(object : Callback<JsonElement>{
+            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
+                apiResponse.value = "200"
+            }
+
+            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
+                apiResponse.value = null
+            }
+
+        })
     }
 
-    suspend fun verifyOtp(request: OtpVerifyRequest): Response<VerifyData> {
-        return apiService.verifyOtp(request)
-    }
 
-
-*/
 }
 
 

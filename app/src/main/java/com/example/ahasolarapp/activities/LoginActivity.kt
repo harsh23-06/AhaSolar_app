@@ -1,20 +1,16 @@
 package com.example.ahasolarapp.activities
 
 import LeadViewModel
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.ahasolarapp.LeadListActivity
 import com.example.ahasolarapp.api.ApiService
 import com.example.ahasolarapp.api.RetrofitInstance
 import com.example.ahasolarapp.databinding.ActivityLoginBinding
 import com.example.ahasolarapp.model.LeadViewModelFactory
+import com.example.ahasolarapp.model.LoginRequest
+import com.example.ahasolarapp.model.OtpVerifyRequest
 import com.example.ahasolarapp.repository.LeadRepository
 
 class LoginActivity : AppCompatActivity() {
@@ -30,11 +26,17 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.phoneLayout.error = null
+//        binding.otpLayout.error = null
+        val apiInit = RetrofitInstance.getRetrofitClientObj(this@LoginActivity)
 
-        val leadService = RetrofitInstance.retrofit.create(ApiService::class.java)
-        val leadRepository = LeadRepository(leadService)
+        val leadRepository = LeadRepository(apiInit.getApiInterface())
         leadViewsModel = ViewModelProvider(this, LeadViewModelFactory(leadRepository))[LeadViewModel::class.java]
 
+
+
+
+        binding.loginButton.setOnClickListener {
+            val phoneNumber = binding.phnText.text.toString()
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         // Check if the user is already logged in
         if (isLoggedIn()) {
@@ -43,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-        
+
         binding.sendOtpButton.setOnClickListener {
             val phoneNumber = binding.phntxt.text.toString()
 
@@ -72,6 +74,9 @@ class LoginActivity : AppCompatActivity() {
             val phoneNumber = binding.phntxt.text.toString()
             binding.textView.text = it.message
 
+            })
+
+        }
             // Open VerifyOtp activity
             val intent = Intent(this, VerifyOtp::class.java)
             intent.putExtra("phoneNumber", phoneNumber)

@@ -1,19 +1,22 @@
 import androidx.lifecycle.LiveData
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.ahasolarapp.model.LeadDeleteRequest
 import com.example.ahasolarapp.model.LeadModel
 import com.example.ahasolarapp.model.OtpResponse
 import com.example.ahasolarapp.model.VerifyData
+import com.example.ahasolarapp.model.OtpVerifyRequest
 import com.example.ahasolarapp.repository.LeadRepository
 import com.example.ahasolarapp.utils.Constants
 import com.google.gson.JsonObject
+import kotlinx.coroutines.Dispatchers
 
 class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
 
     val _leadListLiveData: MutableLiveData<List<LeadModel>> = MutableLiveData<List<LeadModel>>()
+    val _deleteData: MutableLiveData<String> = MutableLiveData<String>()
 
-    //    val leadListLiveData: LiveData<List<LeadModel>> = _leadListLiveData
-    private val _filteredLeadListLiveData = MutableLiveData<List<LeadModel>>()
     val otpSend: MutableLiveData<OtpResponse> = MutableLiveData()
     val verifyOtp: MutableLiveData<VerifyData> = MutableLiveData()
     private val _verifyOtpResult = MutableLiveData<Boolean>()
@@ -58,17 +61,17 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
         }
     }
 
-//    fun verifyOtp(otp: String) {
-//        val apiRequest = JsonObject()
-//        apiRequest.addProperty("otp", otp)
-//        repository.verifyOtp(Constants.POST_VERIFY_OTP, apiRequest, verifyOtp)
-//    }
-
-}
 
 
-/*fun deleteLead(authToken: String, leadId: Int) {
-    viewModelScope.launch(Dispatchers.IO) {
+
+    fun deleteLead(authToken: String, leadId: Int) {
+
+        val apiRequest = JsonObject()
+        apiRequest.addProperty("actionType", 3)
+        apiRequest.addProperty("leadId", leadId)
+        repository.deleteLead(Constants.POST_DELETE_LIST_ITEM, apiRequest, authToken, _deleteData)
+
+        /* viewModelScope.launch(Dispatchers.IO) {
         try {
             val deleteRequest = LeadDeleteRequest(actionType = 3, leadId = leadId)
             Log.d("TAG", "deleteLead: $deleteRequest")
@@ -107,7 +110,8 @@ fun verifyOtp(otpRequest: OtpVerifyRequest) {
             Log.e("OTP Verification", "Error verifying OTP", exception)
         }
     }
-}*/
+}
+*/
 
 
 

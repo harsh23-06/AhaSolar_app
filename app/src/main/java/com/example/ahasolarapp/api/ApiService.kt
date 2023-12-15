@@ -8,6 +8,7 @@ import com.example.ahasolarapp.model.LoginRequest
 import com.example.ahasolarapp.model.OtpResponse
 import com.example.ahasolarapp.model.OtpVerifyRequest
 import com.example.ahasolarapp.model.VerifyData
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Response
@@ -31,9 +32,9 @@ interface ApiService {
     @POST
      fun deleteLeadWithHeader(
         @Url endpoint: String,
-        @HeaderMap headers: Map<String, String>,
-        @Body request: LeadDeleteRequest
-    ): Call<LeadResponse>
+        @Header("Authorization") headers:String,
+        @Body request: JsonObject
+    ): Call<JsonElement>
 
     @POST
     fun verifyOtpWithNoHeader(
