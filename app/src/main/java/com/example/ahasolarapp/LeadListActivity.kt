@@ -1,6 +1,9 @@
 package com.example.ahasolarapp
 
 import LeadViewModel
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -8,6 +11,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.ahasolarapp.activities.LoginActivity
 import com.example.ahasolarapp.adapter.LeadListAdapter
 import com.example.ahasolarapp.adapter.OnItemClickListener
 import com.example.ahasolarapp.api.ApiService
@@ -23,6 +27,7 @@ class LeadListActivity : AppCompatActivity(), OnItemClickListener {
     private lateinit var adapter: LeadListAdapter
     private lateinit var leadViewsModel: LeadViewModel
     private var originalList: List<LeadModel> = mutableListOf()
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +39,7 @@ class LeadListActivity : AppCompatActivity(), OnItemClickListener {
         val apiInit = RetrofitInstance.getRetrofitClientObj(this@LeadListActivity)
 
         val leadRepository = LeadRepository(apiInit.getApiInterface())
+        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
         leadViewsModel =
             ViewModelProvider(this, LeadViewModelFactory(leadRepository))[LeadViewModel::class.java]
@@ -49,31 +55,19 @@ class LeadListActivity : AppCompatActivity(), OnItemClickListener {
                     leadViewsModel.getLeadList(Constants.auth)
                 }
             }
-            sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-
-            // Check if the user is logged in
-            if (!isLoggedIn()) {
-                // If not logged in, redirect to the login activity
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-
-            leadViewsModel._leadListLiveData.observe(this, Observer {
-                originalList = it
-                adapter.updateList(originalList)
-                binding.noResFoundLL.isVisible = originalList.isEmpty()
-            })
-
-
-
-
-            /*observe(this, Observer {
-
-
-
-
         })
+
+        // Check if the user is logged in
+        if (!isLoggedIn()) {
+            // If not logged in, redirect to the login activity
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+
+
+
         leadViewsModel.getLeadList(Constants.auth)
 
         binding.searchBarLL.setOnClickListener(setupSearchBar())
@@ -81,13 +75,8 @@ class LeadListActivity : AppCompatActivity(), OnItemClickListener {
         setupRecyclerView()
     }
 
-    private fun setupSearchBar(): View.OnClickListener {
-        private fun isLoggedIn(): Boolean {
-            // Retrieve login state from SharedPreferences
-            return sharedPreferences.getBoolean("isLoggedIn", false)
-        }
 
-        private fun setupSearchBar(): View.OnClickListener {
+    private fun setupSearchBar(): View.OnClickListener {
 
         binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -116,7 +105,8 @@ class LeadListActivity : AppCompatActivity(), OnItemClickListener {
     }
 
     private fun filter(query: String) {
-        val filteredList = originalList.filter { it.projectName.contains(query, ignoreCase = true) }
+        val filteredList =
+            originalList.filter { it.projectName.contains(query, ignoreCase = true) }
         adapter.updateList(filteredList)
         binding.noResFoundLL.isVisible = filteredList.isEmpty()
 
@@ -126,5 +116,11 @@ class LeadListActivity : AppCompatActivity(), OnItemClickListener {
 
         leadViewsModel.deleteLead(Constants.auth, position.leadId)
     }
+
+    private fun isLoggedIn(): Boolean {
+// Retrieve login state from SharedPreferences
+        return sharedPreferences.getBoolean("isLoggedIn", false)
+    }
+
 
 }

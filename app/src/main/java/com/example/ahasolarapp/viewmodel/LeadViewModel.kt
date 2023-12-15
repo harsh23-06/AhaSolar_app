@@ -23,7 +23,6 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
     val verifyOtpResult: LiveData<Boolean> get() = _verifyOtpResult
 
 
-
     fun getLeadList(authToken: String) {
 
         val apiRequest = JsonObject()
@@ -62,8 +61,6 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
     }
 
 
-
-
     fun deleteLead(authToken: String, leadId: Int) {
 
         val apiRequest = JsonObject()
@@ -71,47 +68,5 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
         apiRequest.addProperty("leadId", leadId)
         repository.deleteLead(Constants.POST_DELETE_LIST_ITEM, apiRequest, authToken, _deleteData)
 
-        /* viewModelScope.launch(Dispatchers.IO) {
-        try {
-            val deleteRequest = LeadDeleteRequest(actionType = 3, leadId = leadId)
-            Log.d("TAG", "deleteLead: $deleteRequest")
-            val response = repository.deleteLead(authToken, deleteRequest)
-            if (response.isSuccessful) {
-                getLeadList(authToken)
-                Log.d("Lead Deletion", "Successfully deleted lead with ID: $leadId")
-            } else {
-                // Handle error case
-                Log.e("", "Error deleting lead with ID: $leadId")
-            }
-
-            // Reload lead list after deletion
-            getLeadList(authToken)
-        } catch (exception: Exception) {
-            // Handle exception
-            Log.e("Lead Deletion", "Error deleting lead with ID: $leadId", exception)
-        }
     }
 }
-
-fun verifyOtp(otpRequest: OtpVerifyRequest) {
-    viewModelScope.launch(Dispatchers.IO) {
-        try {
-            val response = repository.verifyOtp(otpRequest)
-            if (response.isSuccessful) {
-                // Handle successful OTP verification
-                val verifyData = response.body()
-                Log.e("OTP Verification", "Verified OTP")
-            } else {
-                // Handle error case
-                Log.e("OTP Verification", "Error verifying OTP")
-            }
-        } catch (exception: Exception) {
-            // Handle exception
-            Log.e("OTP Verification", "Error verifying OTP", exception)
-        }
-    }
-}
-*/
-
-
-
