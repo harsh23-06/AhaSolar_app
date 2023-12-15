@@ -43,7 +43,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:maxLength="25"
                     android:hint="@string/harsh"
                     android:maxLines="1"
                     android:text="@{model.projectName + ` (` + (model.pvCapacity &lt; 0.0 ? `-` : String.valueOf(model.pvCapacity)) + ` kW)`}"
@@ -51,8 +50,8 @@
 
                 <ImageView
                     android:id="@+id/popupMenu"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/menu_dots" />
             </LinearLayout>
@@ -75,10 +74,10 @@
                     android:backgroundTint="@color/orange"
                     android:background="@drawable/textview"
                     android:textColor="@color/white"
+                    android:minWidth="100dp"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="3dp"
-                    android:hint="@string/lead_project"
-                    android:text="@{model.categoryName.empty?`-`:model.categoryName}" />
+                    android:text="@{model.categoryName.empty?``:model.categoryName}" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -90,7 +89,7 @@
                     android:layout_marginHorizontal="3dp"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="3dp"
-                    android:hint="@string/category_status"
+                    tools:text="@string/category_status"
                     android:text="@{model.statusName}"/>
                 <TextView
                     android:layout_width="0dp"
@@ -177,8 +176,7 @@
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:lines="2"
-                    android:gravity="start"
-                    android:textAlignment="viewStart"
+                    android:gravity="center_vertical"
                     android:layout_gravity="center"
                     android:hint="@string/address"
                     android:text="@{model.address.empty?`-`:model.address}"/>
@@ -201,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
                     android:gravity="end"
-                    android:hint="@string/creator_name"
+                    tools:text="@string/creator_name"
                     android:text="@{model.sourceLeadName.empty?`-`:model.sourceLeadName}"
                      />
                 <TextView

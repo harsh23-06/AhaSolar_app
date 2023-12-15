@@ -1,3 +1,4 @@
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -34,10 +35,10 @@ class LeadViewModel(private val repository: LeadRepository) : ViewModel() {
 
     }
 
-    fun sendOtp(phoneNumber: String) {
+    fun sendOtp(context: Context,phoneNumber: String) {
         val apiRequest = JsonObject()
         apiRequest.addProperty("emailOrMobile", phoneNumber)
-        repository.sendOtp(Constants.POST_SEND_OTP, apiRequest, otpSend)
+        repository.sendOtp(Constants.POST_SEND_OTP, apiRequest, otpSend,context)
 
     }
 

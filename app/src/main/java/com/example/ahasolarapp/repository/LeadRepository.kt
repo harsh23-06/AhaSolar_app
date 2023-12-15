@@ -1,5 +1,7 @@
 package com.example.ahasolarapp.repository
 
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.example.ahasolarapp.api.ApiService
 import com.example.ahasolarapp.model.LeadDeleteRequest
@@ -49,7 +51,8 @@ class LeadRepository(private val apiService: ApiService) {
     fun sendOtp(
         url: String = "",
         apiRequest: JsonObject,
-        apiResponse: MutableLiveData<OtpResponse>
+        apiResponse: MutableLiveData<OtpResponse>,
+        context: Context
     ) {
 
         apiService.sendOtpWithNoHeader(url, apiRequest).enqueue(object : Callback<OtpResponse> {
@@ -58,6 +61,7 @@ class LeadRepository(private val apiService: ApiService) {
                 response: Response<OtpResponse>
             ) {
                 apiResponse.value = response.body()
+                Toast.makeText(context.applicationContext,response.body()!!.message,Toast.LENGTH_LONG).show()
             }
 
             override fun onFailure(call: Call<OtpResponse>, t: Throwable) {

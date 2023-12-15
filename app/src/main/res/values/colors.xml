@@ -10,4 +10,5 @@
     <color name="dark_grey">#535353</color>
     <color name="orange">#C3370A</color>
     <color name="light_green">#159A67</color>
+    <color name="login_button">#F7B325</color>
 </resources>

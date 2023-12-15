@@ -4,6 +4,7 @@ import LeadViewModel
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.ahasolarapp.LeadListActivity
@@ -38,11 +39,13 @@ class LoginActivity : AppCompatActivity() {
         binding.loginButton.setOnClickListener {
             val phoneNumber = binding.phnText.text.toString()
 
-            leadViewsModel.sendOtp(phoneNumber)
+            leadViewsModel.sendOtp(this@LoginActivity,phoneNumber)
 
             leadViewsModel.otpSend.observe(this, Observer {
 
-                    binding.textView.text = it.message
+//                    binding.textView.text = it.message
+                Toast.makeText(this,it.message,Toast.LENGTH_LONG).show()
+
 
             })
             val intent = Intent(this@LoginActivity,LeadListActivity::class.java)

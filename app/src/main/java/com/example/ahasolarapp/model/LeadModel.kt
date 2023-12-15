@@ -2,66 +2,62 @@ package com.example.ahasolarapp.model
 
 import com.google.gson.annotations.SerializedName
 
-
 data class LeadResponse(
-    val status: Int,
-    val statusCode: Int,
-    val message: String,
-    val data: LeadData,
-    val exceptions: Any
+    @SerializedName("status") val status: Int,
+    @SerializedName("statusCode") val statusCode: Int,
+    @SerializedName("message") val message: String,
+    @SerializedName("data") val data: LeadData,
+    @SerializedName("exceptions") val exceptions: Any
 )
 
 data class LeadData(
-    val list: List<LeadModel>,
-    val totalRecords: Int,
-    val startIndex: Int,
-    val endIndex: Int,
-    val lastPage: Int
+    @SerializedName("list") val list: List<LeadModel>,
+    @SerializedName("totalRecords") val totalRecords: Int,
+    @SerializedName("startIndex") val startIndex: Int,
+    @SerializedName("endIndex") val endIndex: Int,
+    @SerializedName("lastPage") val lastPage: Int
 )
 
 data class LeadModel(
-    val leadCreatedBy: String,
-    val leadId: Int,
-    var projectName: String,
-    val projectId: Int,
-    val installerId: Int,
-    val address: String = "-",
-    val updatedAt: String,
-    val statusId: Int,
-    val sourceLeadId: Int?,
-    val statusName: String,
-    val sourceLeadName: String?,
-    val categoryName: String,
-    val days: Int,
-    val uniqueId: Any?,
-    val contractLoad: String,
-    val capacityKw: String,
-    val avgMonthlyBill: Int,
-    val avgGenerate: Int,
-    val loanRequired: Int,
-    val existingCapacity: Any?,
-    val billDocument: Any?,
-    val branch: String,
-    val createdAt: String,
-    val pvCapacity: Double,
-    val srNo: Int
+    @SerializedName("leadCreatedBy") val leadCreatedBy: String,
+    @SerializedName("leadId") val leadId: Int,
+    @SerializedName("projectName") var projectName: String,
+    @SerializedName("projectId") val projectId: Int,
+    @SerializedName("installerId") val installerId: Int,
+    @SerializedName("address") val address: String = "-",
+    @SerializedName("updatedAt") val updatedAt: String,
+    @SerializedName("statusId") val statusId: Int,
+    @SerializedName("sourceLeadId") val sourceLeadId: Int?,
+    @SerializedName("statusName") val statusName: String,
+    @SerializedName("sourceLeadName") val sourceLeadName: String?,
+    @SerializedName("categoryName") val categoryName: String?="",
+    @SerializedName("days") val days: Int,
+    @SerializedName("uniqueId") val uniqueId: Any?,
+    @SerializedName("contractLoad") val contractLoad: String,
+    @SerializedName("capacityKw") val capacityKw: String,
+    @SerializedName("avgMonthlyBill") val avgMonthlyBill: Int,
+    @SerializedName("avgGenerate") val avgGenerate: Int,
+    @SerializedName("loanRequired") val loanRequired: Int,
+    @SerializedName("existingCapacity") val existingCapacity: Any?,
+    @SerializedName("billDocument") val billDocument: Any?,
+    @SerializedName("branch") val branch: String,
+    @SerializedName("createdAt") val createdAt: String,
+    @SerializedName("pvCapacity") val pvCapacity: Double,
+    @SerializedName("srNo") val srNo: Int
 )
 
-data class DeleteLeadRequest(
-    val actionType: Int,
-    val leadId: Int
-)
+
+
 
 data class OtpResponse(
-    val status: Int,
-    val statusCode: Int,
-    val message: String,
-    val data: List<Any>,
-    val exceptions: Map<String, Any>
+    @SerializedName("status") val status: Int,
+    @SerializedName("statusCode") val statusCode: Int,
+    @SerializedName("message") val message: String,
+    @SerializedName("data") val data: List<Any>,
+    @SerializedName("exceptions") val exceptions: Map<String, Any>
 )
 
 data class VerifyData(
-
     @SerializedName("id") var id: String? = null,
     @SerializedName("name") var name: String? = null,
     @SerializedName("firstName") var firstName: String? = null,
@@ -77,8 +73,4 @@ data class VerifyData(
     @SerializedName("isProfileCreated") var isProfileCreated: Boolean? = null,
     @SerializedName("isUserSelection") var isUserSelection: Boolean? = null,
     @SerializedName("isActive") var isActive: Int? = null
-
 )
-
-
-
